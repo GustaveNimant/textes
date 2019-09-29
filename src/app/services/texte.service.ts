@@ -100,8 +100,8 @@ export class TexteService {
 	    this.http.get(this.uri_all + texteObjectId).subscribe(
 		(tex:TexteModel) => {
 		    if (tex) {
-			this.emitCurrentTexte(here);
-			console.log(here,'tex',tex);
+			this.currentTexte$.next(tex)
+			console.log(here,'emit tex',tex);
 		    }
 		    resolve(tex);
 		},
@@ -110,6 +110,22 @@ export class TexteService {
 		}
 	    );
 	});
+    }
+
+    provideTexteByObjectId (texteObjectId: string) {
+	let here = O.functionName();
+	console.log('Entrée dans',here,'avec texteObjectId', texteObjectId);
+
+	this.getTexteByObjectId (texteObjectId)
+	    .then(
+		(tex: TexteModel) => {
+		    console.log('Dans',here,'currentTexte\$.next tex',tex);
+		},
+	    ).catch (
+		(error) => {
+		    console.log('Dans',here,'getTexteByObjectId Erreur', error);
+		}
+	    );
     }
 
     getTextes(caller) {

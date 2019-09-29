@@ -23,6 +23,7 @@ export class SumNotationComponent implements OnInit, OnDestroy {
 
     private participantCount: number;
     private texteObjectId: string;
+
     private texteTitre: string;
     private sum: string;
     private average: string;
@@ -30,6 +31,9 @@ export class SumNotationComponent implements OnInit, OnDestroy {
 
     private currentUrl: string;
     private currentUrlSub: Subscription;
+
+    private currentTexte = new TexteModel();
+    private currentTexteSub: Subscription;
 
     constructor(private stateService: StateService,
 		private texteService: TexteService,
@@ -61,17 +65,15 @@ export class SumNotationComponent implements OnInit, OnDestroy {
 		if (params.texteObjectId) {
 		    this.texteObjectId = params.texteObjectId;
 
-		    this.texteService.getTexteByObjectId (this.texteObjectId)
-			.then(
-			    (tex: TexteModel) => {
-				console.log('Dans',here,'getTexteIdByObjectId tex', tex);
-				this.texteTitre = tex.titre;
-			    },
-			).catch (
-			    (error) => {
-				console.log('Dans',here,'getTexteByObjectId Erreur', error);
-			    }
-			);
+		    this.texteService.provideTexteByObjectId (this.texteObjectId);
+		    this.currentTexteSub = this.texteService.currentTexte$.subscribe(
+			(curtex) => {
+			    this.currentTexte = curtex;
+			    this.texteTitre = this.currentTexte.titre;
+			}
+		    );
+
+		    /* tableau */
 		    
 		    this.notationService.getNotationsByTexteObjectId(params.texteObjectId)
 			.then(
