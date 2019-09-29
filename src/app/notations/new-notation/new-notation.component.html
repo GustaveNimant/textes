@@ -1,0 +1,36 @@
+<mat-spinner *ngIf="loading"></mat-spinner>
+
+<div *ngIf="!loading" class="col-sm-6 offset-sm-3 mt-2">
+    <form [formGroup]="notationForm">
+	<ul>
+	    <li> Titre du texte : {{currentTexteTitre}}</li>
+	    <li> ObjectId du texte : {{currentTexteObjectId}}</li>
+	    <li> Pseudo du participant : {{currentParticipantPseudo}}</li>
+	    <li> Id du participant : {{currentParticipantId}}</li>
+	    <li> Date : {{currentDate}}</li>
+	</ul>
+	<div class="form-group">
+	    <label for="note">Note</label>
+	    <input type="number"
+		   placeholder="Entrer un note ..."
+		   id="note"
+		   formControlName="note" min="0" max="10"
+		   class="form-control">
+	</div>
+	<button class="btn btn-primary"
+		       (click)="onSubmit()"
+		       [disabled]="notationForm.invalid"
+		       [disabled]="existsNotation">Submit
+	</button>
+	<br><br>
+	<p class="alert-danger"
+	   *ngIf="existsNotation">
+	    Vous avez déjà noté ce texte !
+	    <br>
+	    <a routerLink="/textes/list-texte"
+	       routerLinkActive="active"><<Retour à la liste des textes</a>
+	</p>
+	<p class="alert-danger"
+	   *ngIf="errorMessage">Dans new-notation.component.html.<br>Erreur lors de la création de la notation:<br> {{ errorMessage }}</p>
+    </form>
+</div>

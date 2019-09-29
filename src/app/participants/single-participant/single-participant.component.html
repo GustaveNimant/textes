@@ -1,0 +1,24 @@
+<mat-spinner *ngIf="loading"></mat-spinner>
+<div *ngIf="debug">Debug:Dans single-participant.component.html</div>
+<div *ngIf="!loading">
+    <div class="single-participant-pane">
+
+	<div class="single-participant-info">
+
+	    <ul>
+		<li>Participant : {{ participantModel.prenom }} {{ participantModel.nom }} </li>
+		<li>email {{ participantModel.email }}</li>
+		<li>pseudo {{ participantModel.pseudo }}</li>
+		<li>UserId {{ participantModel.userId }}</li>
+		<li>id {{ participantModel._id }} V_{{ participantModel.__v }}</li>
+	    </ul>
+
+	    <button class="btn btn-success m-1" (click)="onModify()">Modifier</button>
+	    
+	    <button class="btn btn-danger m-1" (click)="onDelete()">Supprimer</button>
+	</div>
+	
+	<button class="btn btn-link"
+		       (click)="onGoBack()"><< Retour à la liste des Participants</button>
+    </div>
+</div>

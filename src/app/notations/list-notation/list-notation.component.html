@@ -1,0 +1,27 @@
+<mat-spinner *ngIf="loading"></mat-spinner>
+
+<div *ngIf="debug">Debug:Dans list-notation.component.html:loading = {{loading}}</div>
+<div *ngIf="debug">Debug:Dans list-notation.component.html:isAuth = {{isAuth}}</div>
+<div *ngIf="debug">Debug:Dans list-notation.component.html:nombre de notations = {{notation_a.length}}</div>
+
+<p class="text-center"
+   *ngIf="notation_a.length <= 0 && !loading">
+    La collection notation_c dans la base de données est vide !</p>
+
+<div class="notation-grid"
+     *ngIf="notation_a.length >= 0">
+    <div class="notation-pane"
+	 *ngFor="let une_notation of notation_a"
+	 (click)="onNotationClicked(une_notation._id)">
+
+	<div class="notation-info">
+	    <p>Titre du texte : {{ une_notation.texteTitre }}<p>
+		<p>ObjectId du texte : {{ une_notation.texteObjectId }}<p>
+		    <p>Pseudo du participant {{ une_notation.participantPseudo }}</p>
+		    <p>Id du participant {{ une_notation.participantId }}</p>
+		    <p>Note : {{ une_notation.note }}</p>
+		    <p>Date : {{ une_notation.date }}</p>
+		    <p>ObjectId dans la collection <b>notation_c</b> : {{ une_notation._id }} ( {{ une_notation.__v }} )</p>
+	</div>
+    </div>
+</div>

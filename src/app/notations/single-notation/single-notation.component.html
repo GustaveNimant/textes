@@ -1,0 +1,18 @@
+<mat-spinner *ngIf="loading"></mat-spinner>
+<div *ngIf="debug">Debug:Dans single-notation.component.html</div>
+<div *ngIf="!loading">
+    <div class="single-notation-pane">
+
+	<div class="single-notation-info">
+	    <p>Id du texte {{ notation.texteObjectId }}<p>
+		<p>Id du participant {{ notation.participantId }}</p>
+		<p>Id courant {{ notation._id }}</p>
+		<p>note {{ notation.note }}</p>
+		<p>date {{ notation.date }}</p>
+		<button class="btn btn-danger m-1"
+			(click)="onDelete()">Supprimer</button>
+	</div>
+	<button class="btn btn-link"
+		(click)="onGoBack()"><< Retour à la liste des Notations</button>
+    </div>
+</div>

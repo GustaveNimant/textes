@@ -1,0 +1,35 @@
+<mat-spinner *ngIf="loading"></mat-spinner>
+<div *ngIf="!loading" class="col-sm-6 offset-sm-3 mt-2">
+    <ul>
+	<li> Titre : {{texte.titre}} </li>
+	<li>Note : {{texte.noteMoyenne}} ({{texte.noteEcartType}})</li>
+	<li>Shasum du contenu précédent : {{texte.shasum}}</li>
+	<li>Id du contenu : {{texte.texteContenuId}} ({{texte.version}})</li>
+	<li>ObjectId : {{texte._id}} ({{texte.__v}})</li>
+    </ul>
+    <form [formGroup]="texteForm">
+
+	<div class="form-group">
+	    <label for="contenu">Description</label>
+	    <textarea name="contenu"
+                      id="contenu"
+                      cols="30" rows="7"
+                      class="form-control"
+                      formControlName="contenu"
+                      placeholder="Entrer votre texte ici ..."></textarea>
+	</div>
+	
+	<button class="btn btn-success" (click)="onNewTexteVersion()"
+		       [disabled]="texteForm.invalid">Sauver la version</button>
+	
+	<p class="alert-danger" *ngIf="errorMessage"><br>
+	    Il faut <a class="header-link"
+		       routerLink="/login"
+		       routerLinkActive="active">
+	    <button class="btn btn-primary">se connecter</button>
+	    </a>
+	    pour modifier un texte
+	</p>
+	
+    </form>
+</div>

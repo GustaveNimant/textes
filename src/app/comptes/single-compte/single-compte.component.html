@@ -1,0 +1,17 @@
+<mat-spinner *ngIf="loading"></mat-spinner>
+<div *ngIf="debug">Debug:Dans single-compte.component.html</div>
+<div *ngIf="!loading">
+    <div class="single-compte-pane">
+
+	<div class="single-compte-info">
+	    <p>pseudo : {{ compte.pseudo }}</p>
+	    <p>email : {{ compte.email }}<p>
+	    <p>id du compte : {{ compte._id }}</p>
+
+	    <button class="btn btn-danger m-1" (click)="onDelete()"
+	            [disabled]="!isAuth">Supprimer</button>
+	</div>
+	<button class="btn btn-link"
+		(click)="onGoBack()"><< Retour à la liste des Comptes</button>
+    </div>
+</div>

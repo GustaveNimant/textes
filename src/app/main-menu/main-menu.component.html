@@ -1,0 +1,28 @@
+<app-header></app-header>
+<div *ngIf="debugIsActive">Debug:Dans main-menu.component.html</div>
+
+<div class="main-pane">
+    <div class="part-grid">
+	<div class="part"
+	     (click)="onNavigate('textes')">
+	    <h1>Les textes</h1>
+	</div>
+	<div class="part"
+	     (click)="onNavigate('participants')">
+	    <h1>Les Participants</h1>
+	</div>
+	<div class="part"
+	     (click)="onNavigate('buts')">
+	    <h1>Les Buts</h1>
+	</div>
+	<div class="part"
+	     (click)="onNavigate('notations')">
+	    <h1>Les Notations</h1>
+	</div>
+	<div class="part"
+	     (click)="onNavigate('comptes')">
+	    <h1>Les Comptes</h1>
+	</div>
+    </div>
+</div>
+

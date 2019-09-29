@@ -1,0 +1,49 @@
+<mat-spinner *ngIf="loading"></mat-spinner>
+<div *ngIf="debug">Debug:Dans single-texte.component.html</div>
+<div *ngIf="!loading">
+
+    <div class="single-texte-pane">
+
+	<div class="single-texte-info">
+	    <h2>{{ currentTexte.titre }}</h2>
+	    <p>note : {{ currentTexte.noteMoyenne }} ({{ currentTexte.noteEcartType }}) </p>
+	    <p>Id du contenu : {{ currentTexte.texteContenuId }} ( {{ currentTexte.version }} ) </p>
+	    <p>ObjectId : {{ currentTexte._id }} ( {{ currentTexte.__v }} ) </p>
+	    <p>Sha256 de la version précédente : {{currentTexte.shasum}} </p>
+	    <p>Contenu : {{ currentTexte.contenu }}</p>
+	    
+	    <button class="btn btn-success m-1"
+		    (click)="onNotate()">Noter</button>
+	    <br>
+	    <button class="btn btn-primary m-1"
+		    (click)="onDisplayNotation()">Afficher les Notations</button>
+	    <br>
+	    <button class="btn btn-success m-1"
+		    (click)="onAverageNote()">Calculer la note moyenne</button>
+	    <br>
+	    <button class="btn btn-success m-1"
+		    (click)="onNewTexteVersion()">Créer une nouvelle version</button>
+	    <br>
+	    <button class="btn btn-success m-1"
+		    (click)="onModifyTexte()">Modifier l'enregistrement</button>
+	    <br>
+	    <button class="btn btn-danger m-1"
+		    (click)="onDelete()">Supprimer</button>
+	</div>
+	
+	<button class="btn btn-link"
+		       (click)="onGoAllTexte()"><< Retour à la liste des Textes</button>
+
+	<p class="alert-danger"
+	   *ngIf="errorMessage">Dans single-texte.component.html.<br>Erreur<br> {{ errorMessage }}</p>
+	
+	<p class="alert-danger" *ngIf="!isAuth"><br>
+	    Il faut <a class="header-link"
+		       routerLink="/login"
+		       routerLinkActive="active">
+	    <button class="btn btn-primary">se connecter</button>
+	    </a> pour modifier un texte
+	</p>
+
+    </div>
+</div>

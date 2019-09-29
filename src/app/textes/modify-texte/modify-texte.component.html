@@ -1,0 +1,49 @@
+<mat-spinner *ngIf="loading"></mat-spinner>
+<div *ngIf="!loading" class="col-sm-6 offset-sm-3 mt-2">
+    <form [formGroup]="texteForm">
+	<div class="form-group">
+	    <label for="titre">Titre</label>
+	    <input type="text"
+		   placeholder="Titre de l'enregistrement ?"
+		   id="titre"
+		   formControlName="titre"
+		   class="form-control">
+	</div>
+	<div class="form-group">
+	    <label for="noteMoyenne">Note moyenne</label>
+	    <input type="number"
+		   id="noteMoyenne"
+		   class="form-control"
+		   formControlName="noteMoyenne" min="0">
+	</div>
+	<div class="form-group">
+	    <label for="contenu">Description</label>
+	    <textarea name="contenu"
+                      id="contenu"
+                      cols="30" rows="7"
+                      class="form-control"
+                      formControlName="contenu"
+                      placeholder="Entrer votre texte ici ..."></textarea>
+	</div>
+	<div class="form-group">
+	    <label for="shasum">Sha256 de la version précédente</label>
+	    <input type="text"
+		   id="shasum"
+		   formControlName="shasum"
+		   class="form-control">
+	</div>
+	
+	<button class="btn btn-success" (click)="onModifyTexte()"
+		[disabled]="texteForm.invalid">Modifier</button>
+	
+	<p class="alert-danger" *ngIf="errorMessage"><br>
+	    Il faut <a class="header-link"
+		       routerLink="/login"
+		       routerLinkActive="active">
+	    <button class="btn btn-primary">se connecter</button>
+	    </a>
+	    pour modifier un texte
+	</p>
+	
+    </form>
+</div>

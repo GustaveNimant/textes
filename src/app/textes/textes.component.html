@@ -1,0 +1,21 @@
+<app-main-menu></app-main-menu>
+
+<h2>
+    Les textes
+    <ul>
+	<li *ngIf="(!isAuth)">
+	    <a routerLink="/login"
+	       routerLinkActive="active">Login (pour entrer un nouveau texte)</a>
+	</li>
+	<li *ngIf="(isAuth)">
+	    <a routerLink="/textes/new-texte"
+	       routerLinkActive="active">Entrer un nouveau texte</a>
+	</li>
+	<li>
+	    <a routerLink="/textes/list-texte"
+	       routerLinkActive="active">Afficher la liste des textes</a>
+	</li>
+    </ul>
+</h2>
+
+<router-outlet></router-outlet>

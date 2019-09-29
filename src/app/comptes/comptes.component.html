@@ -1,0 +1,20 @@
+<app-main-menu></app-main-menu>
+<h2>
+    Les comptes
+    <ul>
+	<li *ngIf="(!isAuth)">
+	    <a routerLink="/login"
+	       routerLinkActive="active">Login</a>
+	</li>
+	<li *ngIf="(isAuth)">
+	    <a routerLink="/comptes/new-compte"
+	       routerLinkActive="active">Entrer un nouveau compte</a>
+	</li>
+	<li>
+	    <a routerLink="/comptes/list-compte"
+	       routerLinkActive="active">Afficher la liste des comptes</a>
+	</li>
+    </ul>
+</h2>
+
+<router-outlet></router-outlet>

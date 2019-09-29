@@ -1,0 +1,39 @@
+    // copie depuis une-bibliotheque/src/app/book-single.component.ts
+
+    onSaveImage() {
+	console.log ('Entrée dans onSaveImage with texte', this.texte);
+
+	console.log ('Dans onSaveImage fileUrl', this.fileUrl);
+	if (this.fileUrl && this.fileUrl !== '') {
+ 	    this.texte.image = this.fileUrl;
+ 	}
+	
+	console.log ('onSaveImage texte', this.texte);
+	this.textesService.modifyTexte(this.texte._id, this.texte);
+	this.router.navigate(['/all-texte']);
+    }
+
+    onUploadFile (file: File) {
+	console.log ('Entrée dans onUploadFile');
+	this.fileIsUploading = true;
+	/* on déclenche, en asynchrone (then), le service pour le fichier en argument */
+	this.textesService.uploadFile(file)
+	    .then ( /* asynchrone */
+		    (url: string) => {
+			/* si le chargement réussi on récupère l'URL en réponse */
+			/* pour enregistrer l'URL */
+			this.fileUrl = url;
+			this.fileIsUploading = false;
+			this.fileUploaded = true;
+		    }
+	    )
+    }
+
+    detectFiles (event) { /* event provient du DOM, déclenche onUploadFile */
+	/* limité à un seul fichier dans le template */
+	const a_file = event.target.files[0];
+	console.log ('Entrée dans detectFiles : event.target.file ', a_file);
+	this.onUploadFile(a_file);
+    }
+*/
+

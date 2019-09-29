@@ -1,0 +1,39 @@
+.main-pane {
+  position: relative;
+  h1 {
+    color: #333333
+  }
+}
+
+.part-grid {
+  display: flex;
+  justify-content: center;
+}
+
+.part {
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  height: 100px;
+  width: 150px;
+  margin: 5px;
+  background: #00AAFF;
+  cursor: pointer;
+  &:hover {
+    background: #00FFFF;		
+    transform: scale(1.02);		
+  }
+
+  h1 {
+    font-size: 140%;
+    color: white;
+    position: absolute;
+    width: 90%;
+    top: 50%;
+    text-align: center;
+    transform: translateY(-50%);
+  }
+}
+
+.text-center {
+  text-align: center; 
+}

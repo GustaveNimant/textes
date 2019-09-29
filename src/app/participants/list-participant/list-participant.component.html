@@ -1,0 +1,32 @@
+<mat-spinner *ngIf="loading"></mat-spinner>
+
+<div *ngIf="debug">Debug:Dans list-participant.component.html:loading = {{loading}}</div>
+<div *ngIf="debug">Debug:Dans list-participant.component.html:nombre de participants = {{participants.length}}</div>
+
+<h2 class="image-legende">
+    Les participants
+</h2>
+
+<p class="text-center"
+   *ngIf="participants.length <= 0 && !loading">
+    La collection participant_c de la base de données est vide !</p>
+
+<div class="participant-grid"
+     *ngIf="participants.length >= 0">
+    
+    <div class="participant-pane"
+	 *ngFor="let un_participant of participants"
+	 (click)="onParticipantClicked(un_participant._id)">
+
+	<div class="participant-info">
+	    <ul>
+		<li>Participant : {{ un_participant.prenom }} {{ un_participant.nom }} </li>
+		<li>pseudo {{ un_participant.pseudo }}</li>
+		<li>email {{ un_participant.email }}</li>
+		<li>UserId {{ un_participant.userId }}</li>
+		<li>Clé publique {{ un_participant?.clePublique }}</li>
+		<li>id {{ un_participant._id }} V_{{ un_participant.__v }}</li>
+	    </ul>
+	</div>
+    </div>
+</div>

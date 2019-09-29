@@ -1,0 +1,26 @@
+<mat-spinner *ngIf="loading"></mat-spinner>
+<div *ngIf="!loading" class="col-sm-6 offset-sm-3 mt-2">
+    <form [formGroup]="participantForm">
+	<div class="form-group">
+	    <label for="email">Titre</label>
+	    <input type="text"
+		   placeholder="Titre du participant ?"
+		   id="email"
+		   formControlName="email"
+		   class="form-control">
+	</div>
+	<div class="form-group">
+	    <label for="pseudo">Description</label>
+	    <textarea name="pseudo"
+                      id="pseudo"
+                      cols="30" rows="7"
+                      class="form-control"
+                      formControlName="pseudo"
+                      placeholder="Entrer le participant ..."></textarea>
+	</div>
+	<button class="btn btn-primary"
+		(click)="onSubmit()"
+		[disabled]="participantForm.invalid">Submit</button>
+	<p class="alert-danger" *ngIf="errorMessage">{{ errorMessage }}</p>
+    </form>
+</div>
