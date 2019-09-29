@@ -79,6 +79,7 @@ export class SumNotationComponent implements OnInit, OnDestroy {
 		    /* tableau */
 
 		    this.notationService.provideNotationsByTexteObjectId(params.texteObjectId);
+		    this.loading = false;
 		    this.notation_aSub = this.notationService.notation_a$.subscribe(
 			(not_a) => {
 				console.log('Dans',here,'liste des notations not_a',not_a);
