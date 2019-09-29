@@ -35,6 +35,9 @@ export class SumNotationComponent implements OnInit, OnDestroy {
     private currentTexte = new TexteModel();
     private currentTexteSub: Subscription;
 
+    private notation_a: NotationModel[] = [];
+    private notation_aSub: Subscription ;
+    
     constructor(private stateService: StateService,
 		private texteService: TexteService,
 		private router: Router,
@@ -74,14 +77,12 @@ export class SumNotationComponent implements OnInit, OnDestroy {
 		    );
 
 		    /* tableau */
-		    
-		    this.notationService.getNotationsByTexteObjectId(params.texteObjectId)
-			.then(
-			    (not_a) => {
-				this.loading = false;
+
+		    this.notationService.provideNotationsByTexteObjectId(params.texteObjectId);
+		    this.notation_aSub = this.notationService.notation_a$.subscribe(
+			(not_a) => {
 				console.log('Dans',here,'liste des notations not_a',not_a);
 				let note_a:number[] = [];
-
                                 for (let i in not_a) {
 				    note_a[i] = not_a[i].note;
 				}
@@ -104,14 +105,6 @@ export class SumNotationComponent implements OnInit, OnDestroy {
 				console.log('Dans',here,'somme des notes note_a',this.sum);
 				console.log('Dans',here,'moyenne des notes note_a',this.average);
 				console.log('Dans',here,'rms des notes note_a',this.rms);
-			    }
-			)
-			.catch(
-			    (error) => {
-				console.log('Dans',here,'Erreur', error);
-				console.log('Dans',here,'Erreur.status', error.status);
-				this.loading = false;
-				this.errorMessage = error.message;
 			    }
 			);
 		} else {
