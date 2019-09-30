@@ -122,6 +122,24 @@ export class NotationService {
 	});
     }
 
+    existsNotationByTextIdAndParticipantId (texteObjectId: string, participantId:string) {
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00',here,'avec texteObjectId',texteObjectId,'participantId',participantId);
+
+	return new Promise((resolve, reject) => {
+	    this.http.get(this.uri_all + 'oandp/' + texteObjectId+':'+participantId).subscribe(
+		(response) => {
+		    console.log(here,'response',response);
+		    resolve(response);
+		},
+		(error) => {
+		    reject(error);
+		}
+	    );
+	});
+
+    }
+
     provideNotationsByTexteObjectId(texteObjectId: string) {
 	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here,'avec texteObjectId', texteObjectId);
@@ -143,21 +161,4 @@ export class NotationService {
 	    );
     }
 
-    existsNotationByTextIdAndParticipantId (texteObjectId: string, participantId:string) {
-	let here = O.functionName ();
-	console.log('%cEntrée dans','color:#00aa00',here,'avec texteObjectId',texteObjectId,'participantId',participantId);
-
-	return new Promise((resolve, reject) => {
-	    this.http.get(this.uri_all + 'oandp/' + texteObjectId+':'+participantId).subscribe(
-		(response) => {
-		    console.log(here,'response',response);
-		    resolve(response);
-		},
-		(error) => {
-		    reject(error);
-		}
-	    );
-	});
-
-    }
 } // export

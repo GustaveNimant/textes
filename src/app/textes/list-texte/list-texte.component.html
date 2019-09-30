@@ -11,7 +11,7 @@
      *ngIf="texte_a.length >= 0">
 
     <div class="texte-pane"
-	 *ngFor="let un_texte of texte_a"
+	 *ngFor="let un_texte of currentTexte_a"
 	 (click)="onTexteClicked(un_texte._id)">
 	<div class="texte-titre">
 	    <h3>
@@ -21,6 +21,7 @@
 	<div class="texte-info">
 	    <h5>
 		<ul>
+		    <li>Pseudo : {{ un_texte.pseudo }}</li>
 		    <li>AuteurId : {{ un_texte.auteurId }}</li>
 		    <li>Note moyenne : {{ un_texte.noteMoyenne }} ( {{ un_texte.noteEcartType }} )</li>
 		    <li>Sha256 de la version précédente : {{ un_texte.shasum }}</li>

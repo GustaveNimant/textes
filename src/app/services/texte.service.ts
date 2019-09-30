@@ -112,22 +112,6 @@ export class TexteService {
 	});
     }
 
-    provideTexteByObjectId (texteObjectId: string) {
-	let here = O.functionName();
-	console.log('Entrée dans',here,'avec texteObjectId', texteObjectId);
-
-	this.getTexteByObjectId (texteObjectId)
-	    .then(
-		(tex: TexteModel) => {
-		    console.log('Dans',here,'currentTexte\$.next tex',tex);
-		},
-	    ).catch (
-		(error) => {
-		    console.log('Dans',here,'getTexteByObjectId Erreur', error);
-		}
-	    );
-    }
-
     getTextes(caller) {
 	let here = O.functionName ();
 	console.log('Entrée dans',here,'avec uri_all', this.uri_all);
@@ -173,6 +157,22 @@ export class TexteService {
 		}
 	    );
 	});
+    }
+
+    provideTexteByObjectId (texteObjectId: string) {
+	let here = O.functionName();
+	console.log('Entrée dans',here,'avec texteObjectId', texteObjectId);
+
+	this.getTexteByObjectId (texteObjectId)
+	    .then(
+		(tex: TexteModel) => {
+		    console.log('Dans',here,'currentTexte\$.next tex',tex);
+		},
+	    ).catch (
+		(error) => {
+		    console.log('Dans',here,'getTexteByObjectId Erreur', error);
+		}
+	    );
     }
 
 }

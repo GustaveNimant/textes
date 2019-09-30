@@ -21,9 +21,14 @@ export class ListTexteComponent implements OnInit, OnDestroy {
     private isAuthSub: Subscription;
 
     private currentUrl: string;
+
+    public currentTexte_a = new Array<TexteModel>();
     
-    public texte_a: TexteModel[] = [];
+    public texte_a = new Array<TexteModel>();
     public texte_aSub: Subscription;
+
+    public currentPseudo: string;
+    public currentCompteSub: Subscription;
     
     constructor(private stateService: StateService,
 		private compteService: CompteService,
@@ -47,9 +52,25 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 
 	this.texte_aSub = this.texteService.texte_a$.subscribe(
 	    (tex_a) => {
-		console.log('Dans',here,'subscribe tex_a',tex_a);
-		this.texte_a = tex_a;
 		this.loading = false;
+		console.log('Dans',here,'subscribe tex_a',tex_a);
+		for (let t in tex_a) {
+                    let aId = tex_a[t].auteurId;
+		    console.log('\n-------------------------\n');
+		    console.log('Dans',here,'Loop aId',aId);
+		    console.log('Dans',here,'tex_a[',t,']',tex_a[t]);
+
+		    this.compteService.getCompteById(aId);
+		    this.currentCompteSub = this.compteService.currentCompte$.subscribe(
+			(curcom) => {
+			    console.log('Dans',here,'curcom',curcom);
+			    console.log('Dans',here,'currentPseudo',curcom.pseudo);
+			    tex_a[t]['pseudo'] = curcom.pseudo;
+			    this.currentTexte_a[t] = tex_a[t];
+			}
+		    );
+		    console.log('Dans',here,'currentTexte_a[',t,']',this.currentTexte_a[t]);
+		}
 	    }
 	);
 	
@@ -59,7 +80,7 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 		console.log('Dans ngOnInit isAuth', this.isAuth);
 	    }
 	);
-
+	
 	console.log('Dans',here,'loading', this.loading);
 	this.texteService.getTextes(here); /* afficher les textes */
     }

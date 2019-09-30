@@ -22,6 +22,10 @@ export class CompteService {
 
     private currentCompte = new CompteModel();
     public currentCompte$ = new BehaviorSubject<CompteModel>(this.currentCompte);
+
+    private currentPseudo ='';
+    public currentPseudo$ = new BehaviorSubject<string>(this.currentPseudo);
+
     private loading:boolean = false;
     
     uri_all = 'http://localhost:3000/api/comptes/';
@@ -84,8 +88,8 @@ export class CompteService {
 
     emitCurrentCompte(caller) {
 	let here = O.functionName ();
-	console.log('Entrée dans',here,'avec currentCompte', this.currentCompte);
-	console.log(here,'appelé par',caller);
+	console.log('Entrée dans',here,'appelé par',caller);
+	console.log('Avec currentCompte', this.currentCompte);
 	this.currentCompte$.next(this.currentCompte);
     }
 
@@ -141,9 +145,13 @@ export class CompteService {
 
 	return new Promise((resolve, reject) => {
 	    this.http.get(this.uri_all + id).subscribe(
-		(response) => {
-		    console.log('Dans',here,'response',response);
-		    resolve(response);
+		(com: CompteModel) => {
+		    console.log('Dans',here,'com',com);
+		    if (com) {
+			this.currentCompte = com;
+			this.emitCurrentCompte(here);
+		    }
+		    resolve(com);
 		},
 		(error) => {
 		    reject(error);
@@ -191,7 +199,7 @@ export class CompteService {
 	this.getCompteById (id)
 	    .then(
 		(com: CompteModel) => {
-		    console.log('Dans onLogin',here,'com', com);
+		    console.log('Dans',here,'getCompteById com', com);
 		    return com.pseudo;
 		},
 	    ).catch (
