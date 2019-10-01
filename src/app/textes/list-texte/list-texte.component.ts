@@ -116,7 +116,6 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 	console.log('%cEntrée dans','color:#00aa00', here);
 
 	console.log('Dans',here,' this.currentTexte_a=',this.currentTexte_a);
-	console.log('Dans',here,'compte_a',this.compteService.compte_a);
 	console.log('Dans',here,' this.currentCompte_a=',this.currentCompte_a);
 
 	for (let t in this.currentTexte_a) {
