@@ -28,6 +28,11 @@
 	    <button class="btn btn-success" *ngIf="!trace" (click)="onTraceSwitch()">Trace</button>
 	</li>
 	<li class="header-navigation-item">
+	    <button class="btn btn-primary" *ngIf="verbose" (click)="onVerboseSwitch()">Laconique</button>
+	    <button class="btn btn-success" *ngIf="!verbose" (click)="onVerboseSwitch()">Verbeux</button>
+	</li>
+	
+	<li class="header-navigation-item">
 	    <button class="btn btn-primary"
 		    (click)="onIrpProvider()">Irp<br>Provider</button>
 	</li>

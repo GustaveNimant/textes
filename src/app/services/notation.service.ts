@@ -59,8 +59,10 @@ export class NotationService {
 	this.notation_a$.next(this.notation_a);
     }
 
-    getNotations() {
-	console.log('Entrée dans getNotations avec uri_all', this.uri_all);
+    getNotations(caller) {
+	let here = O.functionName ();
+	console.log('Entrée dans',here,'avec uri_all', this.uri_all);
+	console.log(here,'appelé par',caller);
 
 	return new Promise((resolve, reject) => {
 	    console.log('Dans getNotations resolve', resolve);

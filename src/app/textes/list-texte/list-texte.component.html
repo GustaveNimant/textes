@@ -8,8 +8,8 @@
     La collection texte_with_versions_c de la base de données est vide !</p>
 
 <button class="btn btn-primary"
-	(click)="onAddPseudo()">Ajouter les Pseudos</button>
-
+	(click)="onVerbose()">Ajouter les Pseudos<br>et les notes moyennes</button>
+<br>
 
 <div class="texte-grid"
      *ngIf="currentTexte_a.length >= 0">
@@ -25,9 +25,10 @@
 	<div class="texte-info">
 	    <h5>
 		<ul>
-		    <li>Pseudo : {{ un_texte.pseudo }}</li>
-		    <li>AuteurId : {{ un_texte.auteurId }}</li>
-		    <li>Note moyenne : {{ un_texte.noteMoyenne }} ( {{ un_texte.noteEcartType }} )</li>
+		    <li *ngIf="verbose">Pseudo de l'auteur: {{ un_texte.pseudo }}</li>
+		    <li>Id auteur : {{ un_texte.auteurId }}</li>
+		    <li *ngIf="verbose">Note moyenne : {{ un_texte.noteMoyenne }} &#177; {{ un_texte.noteEcartType }}</li>
+		    <li *ngIf="verbose">Nombre de notes : {{ un_texte.participantCount }}</li>
 		    <li>Sha256 de la version précédente : {{ un_texte.shasum }}</li>
 		    <li>Id du contenu : {{ un_texte.texteContenuId }} ( {{ un_texte.version }} ) </li>
 		    <li>ObjectId : {{ un_texte._id }} ( {{ un_texte.__v }} ) </li>
@@ -39,4 +40,7 @@
 	    <p>{{ un_texte.contenu }}</p>
 	</div>
     </div>
+    <p class="alert-danger"
+       *ngIf="errorMessage">Dans list-texte.component.html.<br>Erreur lors de la lecture des notations:<br> {{ errorMessage }}</p>
+
 </div>

@@ -23,10 +23,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     public isAuth: boolean;
     public debug: boolean;
     public trace: boolean;
+    public verbose: boolean;
 
     private modeSub: Subscription;
     private currentPseudoSub: Subscription;
     private isAuthSub: Subscription;
+    private verboseSub: Subscription;
 
     private irpRegisterSub: Subscription;
     private irpRegister= new Object();
@@ -40,7 +42,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		private irpRegisterService: IrpRegisterService,
 		private dataProviderService: DataProviderService,
 		private compteService: CompteService,
-//		private currentCompteProviderService:CurrentCompteProviderService,
+		//		private currentCompteProviderService:CurrentCompteProviderService,
 		private router: Router)
 		{
 		    let here = O.functionName ();
@@ -64,6 +66,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	    }
 	);
 	console.log('Dans',here,'subscribe.isAuth', this.isAuth);
+
+	this.verboseSub = this.stateService.verbose$.subscribe(
+	    (boo) => {
+		this.verbose = boo;
+	    }
+	);
+	console.log('Dans',here,'subscribe.verbose', this.verbose);
 
 	console.log('Dans',here,'avant pseudo', this.pseudo);
 	if (this.pseudo == undefined) {
@@ -115,30 +124,46 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	this.compteService.logout();
 	console.log('Dans',here,'navigation vers /main-menu');
 	this.router.navigate(['/main-menu']);
-}
+    }
 
-onBackToMainMenu() {
-    console.log('Entrée dans onBackToMainMenu');
-    this.router.navigate(['/main-menu']);
-}
+    onBackToMainMenu() {
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
 
-onDebugSwitch() {
-    console.log('Entrée dans onDebugSwitch');
-    this.stateService.debugSwitch();
-    this.debug = this.stateService.debug;
-    console.log('Dans onDebugSwitch debug', this.debug);
-}
+	this.router.navigate(['/main-menu']);
+    }
 
-onTraceSwitch() {
-    console.log('Entrée dans onTraceSwitch');
-    this.stateService.traceSwitch();
-    this.trace = this.stateService.trace;
-    console.log('Dans onTraceSwitch trace', this.trace);
-}
+    onDebugSwitch() {
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
 
-onIrpProvider() {
-    console.log('Entrée dans onIrpProvider');
-    this.router.navigate(['/irp-provider']);
+	this.stateService.debugSwitch();
+	this.debug = this.stateService.debug;
+	console.log('Dans',here,'debug', this.debug);
+    }
+
+    onTraceSwitch() {
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
+
+	this.stateService.traceSwitch();
+	this.trace = this.stateService.trace;
+	console.log('Dans',here,'trace', this.trace);
+    }
+
+    onVerboseSwitch() {
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
+
+	this.stateService.verboseSwitch();
+	this.verbose = this.stateService.verbose;
+	console.log('Dans',here,'verbose', this.verbose);
+    }
+
+    onIrpProvider() {
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
+	this.router.navigate(['/irp-provider']);
 }
 
 ngOnDestroy() {

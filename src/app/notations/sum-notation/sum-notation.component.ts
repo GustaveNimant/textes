@@ -6,7 +6,7 @@ import { NotationService }                    from '../../services/notation.serv
 import { TexteService }       from '../../services/texte.service';
 import { StateService }                       from '../../services/state.service';
 import { Subscription }                       from 'rxjs';
-import { sumOfArray, averageOfArray, varianceOfArray, rmsOfArray }  from '../../outils/outils-statistics';
+import { arrayCountSumAverageRms, sumOfArray, averageOfArray, varianceOfArray, rmsOfArray }  from '../../outils/outils-statistics';
 
 import * as O from '../../outils/outils-management';
 
@@ -25,9 +25,9 @@ export class SumNotationComponent implements OnInit, OnDestroy {
     private texteObjectId: string;
 
     private texteTitre: string;
-    private sum: string;
-    private average: string;
-    private rms: string;
+    private sum: number;
+    private average: number;
+    private rms: number;
 
     private currentUrl: string;
     private currentUrlSub: Subscription;
@@ -87,25 +87,14 @@ export class SumNotationComponent implements OnInit, OnDestroy {
                                 for (let i in not_a) {
 				    note_a[i] = not_a[i].note;
 				}
-				
-				this.participantCount = note_a.length;
-				console.log('Dans',here,'participantCount',this.participantCount);
-				if (this.participantCount == 0){
-				    this.average = "0";
-				    this.rms = "0";
-				    this.sum = "0";
-				    alert(here+': Mettre une note à ce texte '+this.currentUrl+' ?');
-				    this.router.navigate([this.currentUrl]);
-				}
-				else {
-				    console.log('Dans',here,'liste des notes note_a',note_a);
-				    this.average = (averageOfArray(note_a).toFixed(1)).toString();
-				    this.rms = (rmsOfArray(note_a).toFixed(1)).toString();
-				    this.sum = (sumOfArray(note_a)).toString();
-				}
-				console.log('Dans',here,'somme des notes note_a',this.sum);
-				console.log('Dans',here,'moyenne des notes note_a',this.average);
-				console.log('Dans',here,'rms des notes note_a',this.rms);
+
+			    [this.participantCount, this.average, this.rms, this.sum] = arrayCountSumAverageRms(note_a);
+			    this.average = Math.round(this.average*10)/10;
+			    this.rms = Math.round(this.rms*10)/10;
+
+			    console.log('Dans',here,'somme des notes note_a',this.sum);
+			    console.log('Dans',here,'moyenne des notes note_a',this.average);
+			    console.log('Dans',here,'rms des notes note_a',this.rms);
 			    }
 			);
 		} else {

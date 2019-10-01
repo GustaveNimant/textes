@@ -38,3 +38,19 @@ export function varianceOfArray (num_a : number[]) : number {
     return variance;
 }
 
+export function arrayCountSumAverageRms(num_a : number[]) : number [] {
+
+    let count = num_a.length;
+    if (count == 0){
+	var average = 0;
+	var rms = 0;
+	var sum = 0;
+    }
+    else {
+	var average = averageOfArray(num_a);
+	var rms = rmsOfArray(num_a);
+	var sum = sumOfArray(num_a);
+    }
+    let result = [count, sum, average, rms];
+    return result;
+}

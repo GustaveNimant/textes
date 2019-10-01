@@ -72,7 +72,7 @@ export class ListNotationComponent implements OnInit, OnDestroy {
 	}
 
 	console.log('Dans',here,' before getNotations loading', this.loading);
-	this.notationService.getNotations();
+	this.notationService.getNotations(here);
 	console.log('Dans',here,' after  getNotations loading', this.loading);
     }
 
