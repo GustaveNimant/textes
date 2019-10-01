@@ -69,14 +69,9 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 	console.log('\n------- this.texteService.texte_a$.subscribe ---------\n');
 
 	this.texte_aSub = this.texteService.texte_a$
-			      .pipe(
-				  tap(
-				      (val) => {
-					  this.currentTexte_a = val;
-					  console.log('val',val)}
-				  )
-			      ).subscribe(
+			      .subscribe(
 				  (tex_a) => {
+				      this.currentTexte_a = tex_a;
 				      console.log('Dans',here,'subscribe tex_a',tex_a);
 				  },
 				  (error) =>
@@ -95,14 +90,9 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 	console.log('\n------- après this.texteService.getTextes  ---------\n');
 
 	this.compte_aSub = this.compteService.compte_a$
-	    		       .pipe(
-				   tap(
-				       (val) => {
-					   this.currentCompte_a = val;
-					   console.log('val',val)}
-				   )
-			       ).subscribe(
+			       .subscribe(
 				   (com_a) => {
+				       this.currentCompte_a = com_a;
 				       console.log('Dans',here,'com_a',com_a);
 				   }
 			       );
