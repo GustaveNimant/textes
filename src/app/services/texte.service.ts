@@ -20,7 +20,7 @@ export class TexteService {
     };
 
     public texte_a: TexteModel[] = [];
-    public texte_a$ = new Subject<TexteModel[]>();
+    public texte_a$ = new BehaviorSubject<TexteModel[]>(this.texte_a);
 
     public currentTexte = new TexteModel();
     public currentTexte$ = new BehaviorSubject<TexteModel>(this.currentTexte)

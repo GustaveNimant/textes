@@ -1,14 +1,18 @@
 <mat-spinner *ngIf="loading"></mat-spinner>
 
 <div *ngIf="debug">Debug:Dans list-texte.component.html:loading = {{loading}}</div>
-<div *ngIf="debug">Debug:Dans list-texte.component.html:nombre de textes = {{texte_a.length}}</div>
+<div *ngIf="debug">Debug:Dans list-texte.component.html:nombre de textes = {{currentTexte_a.length}}</div>
 
 <p class="text-center"
-   *ngIf="texte_a.length <= 0 && !loading">
+   *ngIf="currentTexte_a.length <= 0 && !loading">
     La collection texte_with_versions_c de la base de données est vide !</p>
 
+<button class="btn btn-primary"
+	(click)="onAddPseudo()">Ajouter les Pseudos</button>
+
+
 <div class="texte-grid"
-     *ngIf="texte_a.length >= 0">
+     *ngIf="currentTexte_a.length >= 0">
 
     <div class="texte-pane"
 	 *ngFor="let un_texte of currentTexte_a"

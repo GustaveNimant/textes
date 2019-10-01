@@ -17,11 +17,12 @@ export class CompteService {
     token: string;  /* utilisé dans intercept */
     userId: string; /* utilisé dans intercept */
 
-    private compte_a: CompteModel[] = [];
-    public compte_a$ = new BehaviorSubject<CompteModel[]>([]);
+    public compte_a: CompteModel[] = [];
+    public compte_a$ = new BehaviorSubject<CompteModel[]>(this.compte_a);
 
-    private currentCompte = new CompteModel();
+    public currentCompte = new CompteModel();
     public currentCompte$ = new BehaviorSubject<CompteModel>(this.currentCompte);
+//    public currentCompte$ = new Subject<CompteModel>();
 
     private currentPseudo ='';
     public currentPseudo$ = new BehaviorSubject<string>(this.currentPseudo);
@@ -106,9 +107,9 @@ export class CompteService {
 	console.log(here,'appelé par',caller);
 
 	this.http.get(this.uri_all).subscribe(
-	    (con_a: CompteModel[]) => {
-		if (con_a) {
-		    this.compte_a = con_a;
+	    (com_a: CompteModel[]) => {
+		if (com_a) {
+		    this.compte_a = com_a;
 		    this.emitComptes(here);
 		}
 	    },
