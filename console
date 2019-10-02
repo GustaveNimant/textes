@@ -7,3 +7,5 @@ O.unsubscribeLog(here, 'currentUrlSub');
 
 M.entering_in_function (here);	
 M.exiting_from_function (here);
+
+console.log('%cSortie de','color:#aa0000', here);	

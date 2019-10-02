@@ -51,6 +51,6 @@ export function arrayCountSumAverageRms(num_a : number[]) : number [] {
 	var rms = rmsOfArray(num_a);
 	var sum = sumOfArray(num_a);
     }
-    let result = [count, sum, average, rms];
+    let result = [count, average, rms, sum];
     return result;
 }

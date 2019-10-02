@@ -1,10 +1,10 @@
 <mat-spinner *ngIf="loading"></mat-spinner>
 
 <div *ngIf="debug">Debug:Dans list-texte.component.html:loading = {{loading}}</div>
-<div *ngIf="debug">Debug:Dans list-texte.component.html:nombre de textes = {{currentTexte_a.length}}</div>
+<div *ngIf="debug">Debug:Dans list-texte.component.html:nombre de textes = {{texte_a.length}}</div>
 
 <p class="text-center"
-   *ngIf="currentTexte_a.length <= 0 && !loading">
+   *ngIf="texte_a.length <= 0 && !loading">
     La collection texte_with_versions_c de la base de données est vide !</p>
 
 <button class="btn btn-primary"
@@ -12,10 +12,10 @@
 <br>
 
 <div class="texte-grid"
-     *ngIf="currentTexte_a.length >= 0">
+     *ngIf="texte_a.length >= 0">
 
     <div class="texte-pane"
-	 *ngFor="let un_texte of currentTexte_a"
+	 *ngFor="let un_texte of texte_a"
 	 (click)="onTexteClicked(un_texte._id)">
 	<div class="texte-titre">
 	    <h3>
@@ -26,12 +26,12 @@
 	    <h5>
 		<ul>
 		    <li *ngIf="verbose">Pseudo de l'auteur: {{ un_texte.pseudo }}</li>
-		    <li>Id auteur : {{ un_texte.auteurId }}</li>
 		    <li *ngIf="verbose">Note moyenne : {{ un_texte.noteMoyenne }} &#177; {{ un_texte.noteEcartType }}</li>
 		    <li *ngIf="verbose">Nombre de notes : {{ un_texte.participantCount }}</li>
-		    <li>Sha256 de la version précédente : {{ un_texte.shasum }}</li>
+		    <li>Id auteur : {{ un_texte.auteurId }}</li>
 		    <li>Id du contenu : {{ un_texte.texteContenuId }} ( {{ un_texte.version }} ) </li>
 		    <li>ObjectId : {{ un_texte._id }} ( {{ un_texte.__v }} ) </li>
+		    <li>Sha256 de la version précédente : {{ un_texte.shasum }}</li>
 		</ul>
 	    </h5>
 	</div>

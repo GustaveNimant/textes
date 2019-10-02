@@ -22,28 +22,25 @@ export class CompteService {
 
     public currentCompte = new CompteModel();
     public currentCompte$ = new BehaviorSubject<CompteModel>(this.currentCompte);
-//    public currentCompte$ = new Subject<CompteModel>();
+    //    public currentCompte$ = new Subject<CompteModel>();
 
     private currentPseudo ='';
     public currentPseudo$ = new BehaviorSubject<string>(this.currentPseudo);
 
     private loading:boolean = false;
-    
+
     uri_all = 'http://localhost:3000/api/comptes/';
 
     constructor(private router: Router,
 		private http: HttpClient)
 		{
 		    let here = O.functionName ();
-
-		    console.log('Entrée dans',here,'avec router', router)
-		    console.log('Entrée dans',here,'avec http client',http)
+		    console.log('%cEntrée dans','color:#00aa00',here);
 		}
 
     createNewCompte(compte: CompteModel) { /* signup */
 	let here = O.functionName ();
-	console.log('Entrée dans',here,'avec compte ', compte);
-
+	console.log('%cEntrée dans Promise','color:#0000aa',here,'avec compte ', compte);
 	const uri_signup = this.uri_all + 'signup';
 
 	return new Promise((resolve, reject) => {
@@ -73,7 +70,7 @@ export class CompteService {
 
     deleteCompte(id: string) {
 	let here = O.functionName ();
-	console.log('Entrée dans',here,'avec id',id);
+	console.log('%cEntrée dans Promise','color:#0000aa',here,'avec id',id);
 
 	return new Promise((resolve, reject) => {
 	    this.http.delete(this.uri_all + id).subscribe(
@@ -103,27 +100,31 @@ export class CompteService {
 
     getComptes(caller) {
 	let here = O.functionName ();
-	console.log('Entrée dans',here,'avec uri_all', this.uri_all);
+	console.log('%cEntrée dans Promise','color:#0000aa','avec uri_all', this.uri_all);
 	console.log(here,'appelé par',caller);
 
-	this.http.get(this.uri_all).subscribe(
-	    (com_a: CompteModel[]) => {
-		if (com_a) {
-		    this.compte_a = com_a;
-		    this.emitComptes(here);
+	return new Promise((resolve, reject) => {
+	    console.log('Dans getNotations resolve', resolve)
+	    this.http.get(this.uri_all).subscribe(
+		(com_a: CompteModel[]) => {
+		    if (com_a) {
+			this.compte_a = com_a;
+			this.emitComptes(here);
+		    }
+		},
+		(error) => {
+		    console.log('Dans',here,'Erreur:', error);
+		},
+		() => {
+		    console.log('%cSortie de','color:#aa0000', here);
 		}
-	    },
-	    (error) => {
-		console.log('Dans',here,'Erreur:', error);
-	    },
-	    () => {console.log('Dans',here,'fini !')}
-	);
+	    );
+	});
     }
 
     getCompteByEmail(email: string) {
 	let here = O.functionName ();
-	console.log('Entrée dans',here,'avec email', email);
-
+	console.log('%cEntrée dans Promise','color:#0000aa','avec email', email);
 	return new Promise((resolve, reject) => {
 	    this.http.get(this.uri_all + email).subscribe(
 		(com: CompteModel) => {
@@ -133,7 +134,7 @@ export class CompteService {
 		    resolve(com);
 		},
 		(error) => {
-		    console.log('Dans getCompteByEmail Erreur', error);
+		    console.log('Dans',here,'Erreur', error);
 		    reject(error);
 		}
 	    );
@@ -142,8 +143,8 @@ export class CompteService {
 
     getCompteById(id: string) {
 	let here = O.functionName ();
-	console.log('Entrée dans',here,'avec id', id);
-
+	console.log('%cEntrée dans Promise','color:#0000aa','avec id',id);
+	
 	return new Promise((resolve, reject) => {
 	    this.http.get(this.uri_all + id).subscribe(
 		(com: CompteModel) => {
@@ -162,17 +163,18 @@ export class CompteService {
     }
 
     getCompteIdByEmail(email: string) {
-	console.log('Entrée dans getCompteIdByEmail avec email', email);
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#0000aa','avec email',email);
 
 	this.getCompteByEmail (email)
 	    .then(
 		(com: CompteModel) => {
-		    console.log('Dans onLogin getCompteIdByEmail com', com);
+		    console.log('Dans',here,'com', com);
 		    return com._id;
 		},
 	    ).catch (
 		(error) => {
-		    console.log('Dans onLogin getCompteIdByEmail Erreur', error);
+		    console.log('Dans',here,'Erreur', error);
 		}
 	    );
     }
@@ -211,10 +213,9 @@ export class CompteService {
     }
 
     login(email:string, password:string) {
-	let here ='login';
-	console.log('Entrée dans',here,'avec email',email);
-	console.log('Entrée dans',here,'avec password',password);
-
+	let here = O.functionName();
+	console.log('%cEntrée dans Promise','color:#0000aa','avec email',email,' et password',password); 
+	
 	const uri_login = this.uri_all + 'login';
 
 	return new Promise((resolve, reject) => {
@@ -244,7 +245,9 @@ export class CompteService {
     }
 
     logout() {
-	console.log('Entering in logout');
+	let here = O.functionName();
+	console.log('%cEntrée dans','color:#00aa00', here);
+
 	this.isAuth$.next(false);
 	this.userId = null;
 	this.token = null;

@@ -20,7 +20,8 @@ export class NotationService {
     public notation_a$ = new BehaviorSubject<NotationModel[]>(this.notation_a);
 
     createNewNotation(notation: NotationModel) {
-	console.log('Entrée dans createNewNotation avec notation', notation);
+	let here = O.functionName ();
+	console.log('%cEntrée dans Promise','color:#0000aa', here,'avec notation',notation);
 
 	return new Promise((resolve, reject) => {
 	    this.http.post(this.uri_all, notation)
@@ -40,7 +41,8 @@ export class NotationService {
     }
 
     deleteNotation(id: string) {
-	console.log('Entrée dans deleteNotation avec id',id);
+	let here = O.functionName ();
+	console.log('%cEntrée dans Promise','color:#0000aa',here,'avec id',id);
 
 	return new Promise((resolve, reject) => {
 	    this.http.delete(this.uri_all + id).subscribe(
@@ -55,17 +57,19 @@ export class NotationService {
     }
 
     emitNotations() {
-	console.log('Entrée dans emitNotations avec les notations', this.notation_a);
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00',here);
+	
 	this.notation_a$.next(this.notation_a);
     }
 
     getNotations(caller) {
 	let here = O.functionName ();
-	console.log('Entrée dans',here,'avec uri_all', this.uri_all);
+	console.log('%cEntrée dans Promise','color:#0000aa',here,'avec uri_all', this.uri_all);
 	console.log(here,'appelé par',caller);
 
 	return new Promise((resolve, reject) => {
-	    console.log('Dans getNotations resolve', resolve);
+	    console.log('Dans',here,'resolve', resolve);
 	    this.http.get(this.uri_all).subscribe(
 		(not_a: NotationModel[]) => {
 		    if (not_a) {
@@ -74,25 +78,26 @@ export class NotationService {
 		    }
 		},
 		(error) => {
-		    console.log('Dans getNotations Erreur', error);
-		    console.log('Dans getNotations error.status', error.status);
+		    console.log('Dans',here,'Erreur', error);
+		    console.log('Dans',here,'error.status', error.status);
 		    switch (error.status) {
 			case 0:
-			    console.log('Dans getNotations run nodemon server');
+			    console.log('Dans',here,'run nodemon server');
 			    break;
 			default:
 			    break;
 		    }
 		},
 		() => {
-		    console.log('Dans getNotations terminé!')
+		    console.log('%cSortie de','color:#aa0000',here);
 		}
 	    );
 	});
     }
 
     getNotationById(id: string) {
-	console.log('Entrée dans getNotationById avec id', id);
+	let here = O.functionName ();
+	console.log('%cEntrée dans Promise','color:#0000aa', here,'avec id',id);
 
 	return new Promise((resolve, reject) => {
 	    this.http.get(this.uri_all + id).subscribe(
@@ -108,7 +113,7 @@ export class NotationService {
 
     getNotationsByTexteObjectId(texteObjectId: string) {
 	let here = O.functionName ();
-	console.log('%cEntrée dans','color:#00aa00', here,'avec texteObjectId', texteObjectId);
+	console.log('%cEntrée dans Promise','color:#0000aa', here,'avec texteObjectId', texteObjectId);
 
 	return new Promise((resolve, reject) => {
 	    this.http.get(this.uri_all + 'byoid/' + texteObjectId).subscribe(
@@ -126,7 +131,7 @@ export class NotationService {
 
     existsNotationByTextIdAndParticipantId (texteObjectId: string, participantId:string) {
 	let here = O.functionName ();
-	console.log('%cEntrée dans','color:#00aa00',here,'avec texteObjectId',texteObjectId,'participantId',participantId);
+	console.log('%cEntrée dans Promise','color:#0000aa',here,'avec texteObjectId',texteObjectId,'participantId',participantId);
 
 	return new Promise((resolve, reject) => {
 	    this.http.get(this.uri_all + 'oandp/' + texteObjectId+':'+participantId).subscribe(
@@ -144,7 +149,7 @@ export class NotationService {
 
     provideNotationsByTexteObjectId(texteObjectId: string) {
 	let here = O.functionName ();
-	console.log('%cEntrée dans','color:#00aa00', here,'avec texteObjectId', texteObjectId);
+	console.log('%cEntrée dans','color:#00aa00',here,'avec texteObjectId', texteObjectId);
 
 	this.getNotationsByTexteObjectId(texteObjectId)
 	    .then(

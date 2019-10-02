@@ -17,6 +17,7 @@ export class TexteService {
     constructor(private http: HttpClient)
     {
 	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
     };
 
     public texte_a: TexteModel[] = [];
@@ -27,7 +28,7 @@ export class TexteService {
     
     createNewTexte(texte: TexteModel) {
 	let here = O.functionName ();
-	console.log('Entrée dans createNewTexte avec texte', texte);
+	console.log('%cEntrée dans Promise','color:#0000aa',here,'avec texte', texte);
 
 	return new Promise((resolve, reject) => {
 	    this.http.post(this.uri_all, texte)
@@ -48,8 +49,7 @@ export class TexteService {
     
     createNewTexteVersion(texteObjectId: string, texte: TexteModel) { /* texteObjectId  conservé */
 	let here = O.functionName ();
-	console.log('Entrée dans createNewTexteVersion avec texteObjectId',texteObjectId);
-	console.log('Entrée dans createNewTexteVersion avec texte', texte);
+	console.log('%cEntrée dans Promise','color:#0000aa',here,'avec texteObjectId',texteObjectId);
 
 	return new Promise((resolve, reject) => {
 	    this.http.post(this.uri_all + texteObjectId, texte).subscribe(
@@ -65,7 +65,7 @@ export class TexteService {
 
     deleteTexte(texteObjectId: string) {
 	let here = O.functionName ();
-	console.log('Entrée dans',here,'avec texteObjectId',texteObjectId);
+	console.log('%cEntrée dans Promise','color:#0000aa',here,'avec texteObjectId',texteObjectId);
 
 	return new Promise((resolve, reject) => {
 	    this.http.delete(this.uri_all + texteObjectId).subscribe(
@@ -81,20 +81,21 @@ export class TexteService {
 
     emitCurrentTexte(caller) {
 	let here = O.functionName ();
-	console.log('Entrée dans',here,'avec currentTexte', this.currentTexte);
+	console.log('%cEntrée dans','color:#00aa00',here,'avec currentTexte',this.currentTexte);
 	console.log(here,'appelé par',caller);
+	
 	this.currentTexte$.next(this.currentTexte);
     }
 
     emitTextes(caller) {
 	let here = O.functionName ();
-	console.log('Entrée dans',here,'avec les textes', this.texte_a);
+	console.log('%cEntrée dans','color:#00aa00',here,'avec les textes', this.texte_a);
 	this.texte_a$.next(this.texte_a);
     }
 
     getTexteByObjectId(texteObjectId: string) {
 	let here = O.functionName();
-	console.log('Entrée dans',here,'avec texteObjectId', texteObjectId);
+	console.log('%cEntrée dans Promise','color:#0000aa',here,'avec texteObjectId',texteObjectId);
 
 	return new Promise((resolve, reject) => {
 	    this.http.get(this.uri_all + texteObjectId).subscribe(
@@ -114,8 +115,9 @@ export class TexteService {
 
     getTextes(caller) {
 	let here = O.functionName ();
-	console.log('Entrée dans',here,'avec uri_all', this.uri_all);
-	console.log(here,'appelé par',caller);
+	console.log('%cEntrée dans Promise','color:#0000aa',here,'avec uri_all',this.uri_all);
+
+console.log(here,'appelé par',caller);
 
 	return new Promise((resolve, reject) => {
 	    this.http.get(this.uri_all).subscribe(
@@ -137,7 +139,7 @@ export class TexteService {
 		    }
 		},
 		() => {
-		    console.log('Dans getTextes terminé!')
+		    console.log('%cSortie de','color:#aa0000', here);
 		}
 	    );
 	});
@@ -145,7 +147,8 @@ export class TexteService {
     }
 
     modifyTexte(id: string, texte: TexteModel) { /* update id ? */
-	console.log('Entrée dans modifyTexte avec id',id, 'et texte', texte);
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color!#00aa00','avec id',id, 'et texte', texte);
 
 	return new Promise((resolve, reject) => {
 	    this.http.put(this.uri_all + id, texte).subscribe(
@@ -161,7 +164,7 @@ export class TexteService {
 
     provideTexteByObjectId (texteObjectId: string) {
 	let here = O.functionName();
-	console.log('Entrée dans',here,'avec texteObjectId', texteObjectId);
+	console.log('%cEntrée dans','color!#00aa00','avec texteObjectId', texteObjectId);
 
 	this.getTexteByObjectId (texteObjectId)
 	    .then(

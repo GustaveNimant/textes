@@ -6,7 +6,7 @@ import { TexteService }    from '../../services/texte.service';
 import { Router } from '@angular/router';
 import { TexteModel }    from '../../models/texte.model';
 import { CompteModel }   from '../../models/compte.model';
-import { NotationModel }   from '../../models/notation.model';
+import { NotationModel } from '../../models/notation.model';
 
 import { Subscription } from 'rxjs';
 import { filter, map, scan, take, tap, toArray } from 'rxjs/operators';
@@ -23,28 +23,25 @@ import * as O from '../../outils/outils-management';
 export class ListTexteComponent implements OnInit, OnDestroy {
 
     private loading: boolean;
-    private isAuth: boolean;
-    private verbose: boolean;
     private errorMessage: string;
 
     private currentUrl: string;
 
-    public currentTexte_a = new Array<TexteModel>();
-
+    private isAuth: boolean;
     private isAuthSub: Subscription;
 
-    public texte_a = new Array<TexteModel>();
-    public texte_aSub: Subscription;
-
-    public verboseSub: Subscription;
+    private verboseSub: Subscription;
+    private verbose: boolean;
     
-    public currentCompteSub: Subscription;
-    public currentCompte = new CompteModel();
-    private currentCompte_a = new Array<CompteModel>();
+    private texte_a = new Array<TexteModel>();
+    private texte_aSub: Subscription;
+
     private compte_aSub:Subscription;
+    private compte_a = new Array<CompteModel>();
+    private currentCompte = new CompteModel();
 
     private pseudo_a = new Array<string>();
-    public currentPseudo: string;
+    private currentPseudo: string;
 
     private participantCount: number;
     private sum: number;
@@ -52,8 +49,8 @@ export class ListTexteComponent implements OnInit, OnDestroy {
     private rms: number;
 
     private notation_aSub:Subscription;
+    private notation_a = new Array<NotationModel>();
     private currentNotation_a = new Array<NotationModel>();
-    private fullNotation_a = new Array<NotationModel>();
     
     constructor(private stateService: StateService,
 		private compteService: CompteService,
@@ -95,7 +92,7 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 	this.texte_aSub = this.texteService.texte_a$
 			      .subscribe(
 				  (tex_a) => {
-				      this.currentTexte_a = tex_a;
+				      this.texte_a = tex_a;
 				      console.log('Dans',here,'subscribe tex_a',tex_a);
 				  },
 				  (error) =>
@@ -108,32 +105,8 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 
 	console.log('\n------- fin this.texteService.texte_a$.subscribe ---------\n');
 	console.log('\n------- avant this.texteService.getTextes  ---------\n');	this.loading = false;
-
-	this.texteService.getTextes(here); /* afficher les textes */
-
-	console.log('\n------- après this.texteService.getTextes  ---------\n');
-
-	this.compte_aSub = this.compteService.compte_a$
-			       .subscribe(
-				   (com_a) => {
-				       this.currentCompte_a = com_a;
-				       console.log('Dans',here,'com_a',com_a);
-				   }
-			       );
 	
-	this.compteService.getComptes(here); /* afficher les comptes */
-
-	console.log('\n------- après this.texteService.getComptes  ---------\n');
-	
-	this.notation_aSub = this.notationService.notation_a$
-				 .subscribe(
-				     (not_a) => {
-					 this.fullNotation_a = not_a;
-					 console.log('Dans',here,'not_a',not_a);
-				     }
-				 );
-	
-	this.notationService.getNotations(here) /* afficher les notations */
+	this.texteService.getTextes(here) /* afficher les textes */
 	    .then( 
 		() => {
 		    this.loading = false;
@@ -145,32 +118,77 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 		}
 	    );
 
-	console.log('Dans',here,'X verbose',this.verbose);
+	console.log('\n------- après this.texteService.getTextes  ---------\n');
+
+	this.compte_aSub = this.compteService.compte_a$
+			       .subscribe(
+				   (com_a) => {
+				       this.compte_a = com_a;
+				       console.log('Dans',here,'com_a',com_a);
+				   }
+			       );
+	
+	this.compteService.getComptes(here) /* afficher les comptes */
+	    .then( 
+		() => {
+		    this.loading = false;
+		}
+	    ).catch(
+		(error) => {
+		    this.loading = false;
+		    this.errorMessage = error.message;
+		}
+	    );
+
+	console.log('\n------- après this.texteService.getComptes  ---------\n');
+	
+	this.notation_aSub = this.notationService.notation_a$
+				 .subscribe(
+				     (not_a) => {
+					 this.notation_a = not_a;
+					 console.log('Dans',here,'notation_a',this.notation_a);
+				     }
+				 );
+	
+	this.notationService.getNotations(here) /* afficher les notations */
+	    .then( 
+		() => {
+		    console.log('Dans',here,'getNotations then');
+		    this.loading = false;
+		}
+	    ).catch(
+		(error) => {
+		    this.loading = false;
+		    this.errorMessage = error.message;
+		}
+	    );
+
+	console.log('\n------- après this.notationService.getNotations  ---------\n');
 
     }
 
     onVerbose () {
-	    this.onAddPseudo ();
-	    this.onAddAverageNote ();
+	this.onAddPseudo ();
+	this.onAddAverageNote ();
     }
-	
+    
     onAddPseudo () {
 	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
 	
-	console.log('Dans',here,' this.currentTexte_a=',this.currentTexte_a);
-	console.log('Dans',here,' this.currentCompte_a=',this.currentCompte_a);
+	console.log('Dans',here,' this.texte_a=',this.texte_a);
+	console.log('Dans',here,' this.compte_a=',this.compte_a);
 
-	for (let t in this.currentTexte_a) {
-	    let aId = this.currentTexte_a[t].auteurId;
-	    console.log('\n------- Loop t =',t,' ------------------\n');
+	for (let t in this.texte_a) {
+	    let aId = this.texte_a[t].auteurId;
+	    console.log('\n------- Loop texte #',t,' ------------------\n');
 	    console.log('Dans',here,'Loop aId',aId);
-	    console.log('Dans',here,'currentTexte_a[',t,']',this.currentTexte_a[t]);
+	    console.log('Dans',here,'texte_a[',t,']',this.texte_a[t]);
 
-	    this.currentCompte = this.currentCompte_a.find( x => x._id == aId);
+	    this.currentCompte = this.compte_a.find( x => x._id == aId);
 	    this.currentPseudo = this.currentCompte.pseudo;
 	    console.log('Dans',here,'currentPseudo',this.currentPseudo);
-	    this.currentTexte_a[t]['pseudo'] = this.currentPseudo;
+	    this.texte_a[t]['pseudo'] = this.currentPseudo;
 	}
     }
 
@@ -178,16 +196,16 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
 
-	console.log('Dans',here,' this.currentTexte_a=',this.currentTexte_a);
-	console.log('Dans',here,' this.fullNotation_a=',this.fullNotation_a);
+	console.log('Dans',here,' this.texte_a=',this.texte_a);
+	console.log('Dans',here,' this.notation_a=',this.notation_a);
 
-	for (let t in this.currentTexte_a) {
-	    let tId = this.currentTexte_a[t]._id;
-	    console.log('\n------- Loop t =',t,' ------------------\n');
+	for (let t in this.texte_a) {
+	    let tId = this.texte_a[t]._id;
+	    console.log('\n------- Loop texte #',t,' ------------------\n');
 	    console.log('Dans',here,'Loop tId',tId);
-	    console.log('Dans',here,'currentTexte_a[',t,']',this.currentTexte_a[t]);
+	    console.log('Dans',here,'texte_a[',t,']',this.texte_a[t]);
 
-	    this.currentNotation_a = this.fullNotation_a.filter( x => x.texteObjectId == tId);
+	    this.currentNotation_a = this.notation_a.filter( x => x.texteObjectId == tId);
 	    console.log('Dans',here,'currentNotation_a',this.currentNotation_a);
 
 	    let note_a = new Array<number>();
@@ -196,14 +214,14 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 	    }
 
 	    [this.participantCount, this.average, this.rms, this.sum] = arrayCountSumAverageRms(note_a);
-
+	    console.log('Dans',here,'liste des notes',note_a);
 	    console.log('Dans',here,'somme des notes note_a',this.sum);
 	    console.log('Dans',here,'moyenne des notes note_a',this.average);
 	    console.log('Dans',here,'rms des notes note_a',this.rms);
 
-	    this.currentTexte_a[t]['noteMoyenne'] = Math.round(this.average*10)/10;
-	    this.currentTexte_a[t]['noteEcartType'] = Math.round(this.rms*10)/10;
-	    this.currentTexte_a[t]['participantCount'] = this.participantCount;
+	    this.texte_a[t]['noteMoyenne'] = Math.round(this.average*10)/10;
+	    this.texte_a[t]['noteEcartType'] = Math.round(this.rms*10)/10;
+	    this.texte_a[t]['participantCount'] = this.participantCount;
 	}
     }
 
