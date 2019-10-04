@@ -65,7 +65,7 @@ export class NotationService {
 
     getNotations(caller) {
 	let here = O.functionName ();
-	console.log('%cEntrée dans Promise','color:#0000aa',here,'avec uri_all', this.uri_all);
+	console.log('%cEntrée dans Promise','color:#0000ff',here,'avec uri_all', this.uri_all);
 	console.log(here,'appelé par',caller);
 
 	return new Promise((resolve, reject) => {
@@ -74,6 +74,7 @@ export class NotationService {
 		(not_a: NotationModel[]) => {
 		    if (not_a) {
 			this.notation_a = not_a;
+			console.log('Dans',here,'notation_a',not_a);
 			this.emitNotations();
 		    }
 		},

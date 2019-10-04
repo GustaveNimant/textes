@@ -115,15 +115,16 @@ export class TexteService {
 
     getTextes(caller) {
 	let here = O.functionName ();
-	console.log('%cEntrée dans Promise','color:#0000aa',here,'avec uri_all',this.uri_all);
+	console.log('%cEntrée dans Promise','color:#0000ff',here,'avec uri_all',this.uri_all);
 
-console.log(here,'appelé par',caller);
+	console.log(here,'appelé par',caller);
 
 	return new Promise((resolve, reject) => {
 	    this.http.get(this.uri_all).subscribe(
 		(tex_a: TexteModel[]) => {
 		    if (tex_a) {
 			this.texte_a = tex_a;
+			console.log('Dans',here,'texte_a',tex_a);
 			this.emitTextes(here);
 		    }
 		},

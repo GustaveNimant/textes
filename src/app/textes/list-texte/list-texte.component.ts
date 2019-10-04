@@ -87,7 +87,7 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 	    }
 	);
 
-	console.log('\n------- this.texteService.texte_a$.subscribe ---------\n');
+	console.log('\n------- avant this.texteService.texte_a$.subscribe ---------\n');
 
 	this.texte_aSub = this.texteService.texte_a$
 			      .subscribe(
@@ -103,12 +103,14 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 				  }
 			      );
 
-	console.log('\n------- fin this.texteService.texte_a$.subscribe ---------\n');
+	console.log('\n------- après this.texteService.texte_a$.subscribe ---------\n');
 	console.log('\n------- avant this.texteService.getTextes  ---------\n');	this.loading = false;
 	
 	this.texteService.getTextes(here) /* afficher les textes */
 	    .then( 
 		() => {
+		    this.loading = false;
+		    console.log('Dans',here,'getTextes then'); 
 		    this.loading = false;
 		}
 	    ).catch(
@@ -119,34 +121,39 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 	    );
 
 	console.log('\n------- après this.texteService.getTextes  ---------\n');
-
+	console.log('\n------- avant this.compteService.compte_a$.subscribe ---------\n');
+	
 	this.compte_aSub = this.compteService.compte_a$
 			       .subscribe(
 				   (com_a) => {
 				       this.compte_a = com_a;
-				       console.log('Dans',here,'com_a',com_a);
+				       console.log('Dans',here,'subscribe com_a',com_a);
 				   }
 			       );
 	
+	console.log('\n------- après this.compteService.compte_a$.subscribe ---------\n');
+
+	console.log('\n------- avant this.compteService.getComptes  ---------\n');
 	this.compteService.getComptes(here) /* afficher les comptes */
 	    .then( 
-		() => {
-		    this.loading = false;
-		}
-	    ).catch(
-		(error) => {
-		    this.loading = false;
-		    this.errorMessage = error.message;
-		}
-	    );
+												() => {
+												    this.loading = false;
+												}
+											    ).catch(
+												(error) => {
+												    this.loading = false;
+												    this.errorMessage = error.message;
+												}
+											    );
 
 	console.log('\n------- après this.texteService.getComptes  ---------\n');
+	console.log('\n------- avant this.notationService.notation_a$.subscribe ---------\n');
 	
 	this.notation_aSub = this.notationService.notation_a$
 				 .subscribe(
 				     (not_a) => {
 					 this.notation_a = not_a;
-					 console.log('Dans',here,'notation_a',this.notation_a);
+					 console.log('Dans',here,'subscribe notation_a',this.notation_a);
 				     }
 				 );
 	
@@ -165,11 +172,18 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 
 	console.log('\n------- après this.notationService.getNotations  ---------\n');
 
+	this.onVerbose ();
+
     }
 
     onVerbose () {
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
+
 	this.onAddPseudo ();
 	this.onAddAverageNote ();
+	
+	console.log('%cSortie de','color:#aa0000', here);
     }
     
     onAddPseudo () {

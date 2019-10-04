@@ -100,7 +100,7 @@ export class CompteService {
 
     getComptes(caller) {
 	let here = O.functionName ();
-	console.log('%cEntrée dans Promise','color:#0000aa','avec uri_all', this.uri_all);
+	console.log('%cEntrée dans Promise','color:#0000ff',here,'avec uri_all', this.uri_all);
 	console.log(here,'appelé par',caller);
 
 	return new Promise((resolve, reject) => {
@@ -109,6 +109,7 @@ export class CompteService {
 		(com_a: CompteModel[]) => {
 		    if (com_a) {
 			this.compte_a = com_a;
+			console.log('Dans',here,'compte_a',com_a);
 			this.emitComptes(here);
 		    }
 		},

@@ -39,29 +39,6 @@ import { CompteGuard }                 from './services/compte-guard.service';
 import { IrpProviderComponent }        from './irp-provider/irp-provider.component';
 
 const routes: Routes = [
-    { path: 'textes', component: TextesComponent,
-      children: [
-	  { path: 'new-texte', component: NewTexteComponent},
-	  { path: 'single-texte/:id', component: SingleTexteComponent },
-	  { path: 'list-texte', component: ListTexteComponent },
-	  { path: 'new-texte-version/:id', component: NewTexteVersionComponent },
-	  { path: 'modify-texte/:id', component: ModifyTexteComponent },
-	  { path: '', pathMatch: 'full', redirectTo: '' },
-	  { path: '**', redirectTo: 'list-texte' }
-      ]
-    },
-    { path: 'participants', component: ParticipantsComponent,
-      children: [
-	  //      { path: 'new-participant', component: NewParticipantComponent, canActivate: [CompteGuard] },
-	  //	  { path: 'modify-participant/:id', component: ModifyParticipantComponent, canActivate: [CompteGuard] },
-	  //      { path: 'single-participant/:id', component: SingleParticipantComponent, canActivate: [CompteGuard] },
-	  { path: 'new-participant', component: NewParticipantComponent},
-	  { path: 'list-participant', component: ListParticipantComponent },
-	  { path: 'single-participant/:id', component: SingleParticipantComponent },
-	  { path: '', pathMatch: 'full', redirectTo: '' },
-	  { path: '**', redirectTo: 'list-participant' }
-      ]
-    },
     { path: 'buts', component: ButsComponent,
       children: [
 	  { path: 'new-but', component: NewButComponent},
@@ -72,18 +49,6 @@ const routes: Routes = [
 	  { path: '**', redirectTo: 'list-but' }
       ]
     },
-    { path: 'notations', component: NotationsComponent,
-      children: [
-	  { path: 'new-notation', component: NewNotationComponent},
-	  { path: 'new-notation/:id', component: NewNotationComponent},
-	  { path: 'list-notation', component: ListNotationComponent},
-	  { path: 'single-notation/:id', component: SingleNotationComponent},
-	  { path: 'byobjectid-notation/:texteObjectId', component: ByobjectidNotationComponent},
-	  { path: 'sum-notation/:texteObjectId', component: SumNotationComponent},
-	  { path: '', pathMatch: 'full', redirectTo: '' }, 
-	  { path: '**', redirectTo: '' }
-      ]
-    },
     { path: 'comptes', component: ComptesComponent,
       children: [
 	  { path: 'new-compte', component: NewCompteComponent},
@@ -92,6 +57,41 @@ const routes: Routes = [
 	  { path: 'single-compte/:id', component: SingleCompteComponent },
 	  { path: '', pathMatch: 'full', redirectTo: 'list-compte' }, 
 	  { path: '**', redirectTo: 'list-compte' }
+      ]
+    },
+    { path: 'participants', component: ParticipantsComponent,
+      children: [
+	  //      { path: 'new-participant', component: NewParticipantComponent, canActivate: [CompteGuard] },
+	  //	  { path: 'modify-participant/:id', component: ModifyParticipantComponent, canActivate: [CompteGuard] },
+	  //      { path: 'single-participant/:id', component: SingleParticipantComponent, canActivate: [CompteGuard] },
+	  { path: 'new-participant', component: NewParticipantComponent},
+	  { path: 'list-participant', component: ListParticipantComponent },
+	  { path: 'single-participant/:id', component: SingleParticipantComponent },
+	  { path: '', pathMatch: 'full', redirectTo: 'list-participant' },
+	  { path: '**', redirectTo: 'list-participant' }
+      ]
+    },
+    { path: 'textes', component: TextesComponent,
+      children: [
+	  { path: 'new-texte', component: NewTexteComponent},
+	  { path: 'single-texte/:id', component: SingleTexteComponent },
+	  { path: 'list-texte', component: ListTexteComponent },
+	  { path: 'new-texte-version/:id', component: NewTexteVersionComponent },
+	  { path: 'modify-texte/:id', component: ModifyTexteComponent },
+	  { path: '', pathMatch: 'full', redirectTo: 'list-texte' },
+	  { path: '**', redirectTo: 'list-texte' }
+      ]
+    },
+    { path: 'notations', component: NotationsComponent,
+      children: [
+	  { path: 'new-notation', component: NewNotationComponent},
+	  { path: 'new-notation/:id', component: NewNotationComponent},
+	  { path: 'list-notation', component: ListNotationComponent},
+	  { path: 'single-notation/:id', component: SingleNotationComponent},
+	  { path: 'byobjectid-notation/:texteObjectId', component: ByobjectidNotationComponent},
+	  { path: 'sum-notation/:texteObjectId', component: SumNotationComponent},
+	  { path: '', pathMatch: 'full', redirectTo: 'list-notation' }, 
+	  { path: '**', redirectTo: 'list-notation' }
       ]
     },
     { path: 'login', component: LoginComponent },
