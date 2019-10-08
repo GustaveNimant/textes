@@ -13,7 +13,7 @@ import * as O from '../outils/outils-management';
 
 export class ComptesComponent implements OnInit, OnDestroy {
 
-    private isAuth: boolean;
+    public isAuth: boolean;
     private isAuthSub: Subscription;
 
     constructor(private stateService: StateService,

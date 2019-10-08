@@ -18,16 +18,16 @@ import * as O from '../../outils/outils-management';
 
 export class SumNotationComponent implements OnInit, OnDestroy {
 
-    private loading = false;
+    public loading = false;
     private errorMessage: string;
 
-    private participantCount: number;
+    public participantCount: number;
     private texteObjectId: string;
 
-    private texteTitre: string;
+    public texteTitre: string;
     private sum: number;
-    private average: number;
-    private rms: number;
+    public average: number;
+    public rms: number;
 
     private currentUrl: string;
     private currentUrlSub: Subscription;
@@ -37,7 +37,10 @@ export class SumNotationComponent implements OnInit, OnDestroy {
 
     private notation_a: NotationModel[] = [];
     private notation_aSub: Subscription ;
-    
+
+    public debug: boolean;
+    private trace: boolean;
+
     constructor(private stateService: StateService,
 		private texteService: TexteService,
 		private router: Router,
@@ -53,6 +56,9 @@ export class SumNotationComponent implements OnInit, OnDestroy {
 	console.log('%cEntrée dans','color:#00aa00', here);
 
 	this.loading = true;
+
+	this.debug = this.stateService.debug;
+	console.log('Dans',here,'debug', this.debug);
 
 	this.currentUrlSub = this.stateService.currentUrl$.subscribe(
 	    (url) => {

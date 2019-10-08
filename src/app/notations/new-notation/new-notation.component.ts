@@ -30,24 +30,24 @@ export class NewNotationComponent implements OnInit, OnDestroy {
     private currentEmailSub: Subscription;
     private isAuthSub: Subscription;
 
-    private currentParticipantId: string;
-    private currentParticipantPseudo: string;
+    public currentParticipantId: string;
+    public currentParticipantPseudo: string;
 
-    private currentDate: string;
+    public currentDate: string;
     private currentCompte = new CompteModel();
 
     private currentTexteAuteurId: string;
-    private currentTexteObjectId: string;
+    public currentTexteObjectId: string;
 
     private irpRegisterSub: Subscription;
     private irpRegister= new Object();
 
     private currentTexte = new TexteModel();
-    private currentTexteTitre: string;
+    public currentTexteTitre: string;
     private currentEmail: string;
     private isAuth: boolean;
 
-    private existsNotation:any; /* Improve boolean ? */
+    public existsNotation:any; /* Improve boolean ? */
 
     constructor(private stateService: StateService,
 		private formBuilder: FormBuilder,

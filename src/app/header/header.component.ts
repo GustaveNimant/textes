@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private irpRegister= new Object();
 
     private currentEmail: string;
-    private pseudo: string;
+    public pseudo: string;
 
     private currentCompte = new CompteModel();
 

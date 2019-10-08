@@ -6,6 +6,8 @@ import { CompteService } from '../../services/compte.service';
 import { StateService }      from '../../services/state.service';
 import { Subscription } from 'rxjs';
 
+import * as O from '../../outils/outils-management';
+
 @Component({
     selector: 'app-single-notation',
     templateUrl: './single-notation.component.html',
@@ -16,8 +18,9 @@ export class SingleNotationComponent implements OnInit, OnDestroy {
 
     public notation: NotationModel;
     public loading: boolean;
-
-    constructor(private state: StateService,
+    public debug: boolean;
+    
+    constructor(private stateService: StateService,
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
 		private notationService: NotationService,
@@ -27,11 +30,15 @@ export class SingleNotationComponent implements OnInit, OnDestroy {
 		};
     
     ngOnInit(){
-	console.log('Entrée dans ngOnInit');
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
 
 	this.loading = true;
 
-	this.state.mode$.next('single-notation');
+	this.debug = this.stateService.debug;
+	console.log('Dans',here,'debug', this.debug);
+
+	this.stateService.mode$.next('single-notation');
 
 	this.activatedRoute.params.subscribe(
 	    (params: Params) => {

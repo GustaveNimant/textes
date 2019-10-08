@@ -20,10 +20,10 @@ import * as O from '../../outils/outils-management';
 
 export class NewTexteComponent implements OnInit, OnDestroy {
 
-    private texteForm: FormGroup;
-    private loading = false;
-    private errorMessage: string;
-    private debug: boolean;
+    public texteForm: FormGroup;
+    public loading = false;
+    public errorMessage: string;
+    public debug: boolean;
     
     private currentEmailSub: Subscription;
     private currentEmail: string;

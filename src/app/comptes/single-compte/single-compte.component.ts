@@ -5,6 +5,8 @@ import { CompteModel } from '../../models/compte.model';
 import { CompteService } from '../../services/compte.service';
 import { Subscription } from 'rxjs';
 
+import * as O from '../../outils/outils-management';
+
 @Component({
     selector: 'app-single-compte',
     templateUrl: './single-compte.component.html',
@@ -13,10 +15,12 @@ import { Subscription } from 'rxjs';
 
 export class SingleCompteComponent implements OnInit, OnDestroy {
 
-    private compte: CompteModel;
-    private loading: boolean;
+    public currentCompte: CompteModel;
     private userId: string;
-    private isAuth: boolean;
+    public isAuth: boolean;
+
+    public loading: boolean;
+    public debug: boolean;
     
     private isAuthSub: Subscription;
 
@@ -29,9 +33,13 @@ export class SingleCompteComponent implements OnInit, OnDestroy {
 		};
     
     ngOnInit(){
-	console.log('Entrée dans ngOnInit');
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
 
 	this.loading = true;
+
+	this.debug = this.stateService.debug;
+	console.log('Dans',here,'debug', this.debug);
 
 	this.stateService.mode$.next('single-compte');
 	this.userId = this.compteService.userId ? this.compteService.userId : 'compteID40282382';
@@ -45,7 +53,7 @@ export class SingleCompteComponent implements OnInit, OnDestroy {
 			(com: CompteModel) => {
 			    console.log('Dans ngOnInit.route.params com', com);
 			    this.loading = false;
-			    this.compte = com;
+			    this.currentCompte = com;
 			}
 		    );
 	    }
@@ -70,12 +78,13 @@ export class SingleCompteComponent implements OnInit, OnDestroy {
 
     onDelete() {
 	this.loading = true;
-	this.compteService.deleteCompte(this.compte._id).then(
-	    () => {
-		this.loading = false;
-		this.router.navigate(['/comptes/list-comptes']);
-	    }
-	);
+	this.compteService.deleteCompte(this.currentCompte._id)
+	    .then(
+		() => {
+		    this.loading = false;
+		    this.router.navigate(['/comptes/list-comptes']);
+		}
+	    );
     };
 
     ngOnDestroy() {

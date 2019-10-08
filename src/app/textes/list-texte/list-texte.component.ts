@@ -22,8 +22,8 @@ import * as O from '../../outils/outils-management';
 
 export class ListTexteComponent implements OnInit, OnDestroy {
 
-    private loading: boolean;
-    private errorMessage: string;
+    public loading: boolean;
+    public errorMessage: string;
 
     private currentUrl: string;
 
@@ -31,9 +31,9 @@ export class ListTexteComponent implements OnInit, OnDestroy {
     private isAuthSub: Subscription;
 
     private verboseSub: Subscription;
-    private verbose: boolean;
+    public verbose: boolean;
     
-    private texte_a = new Array<TexteModel>();
+    public texte_a = new Array<TexteModel>();
     private texte_aSub: Subscription;
 
     private compte_aSub:Subscription;
@@ -51,7 +51,9 @@ export class ListTexteComponent implements OnInit, OnDestroy {
     private notation_aSub:Subscription;
     private notation_a = new Array<NotationModel>();
     private currentNotation_a = new Array<NotationModel>();
-    
+
+    public debug: boolean;
+
     constructor(private stateService: StateService,
 		private compteService: CompteService,
 		private notationService: NotationService,
@@ -66,6 +68,9 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
 
+	this.debug = this.stateService.debug;
+	console.log('Dans',here,'debug', this.debug);
+	
 	this.loading = true;
 	this.stateService.mode$.next('list');
 

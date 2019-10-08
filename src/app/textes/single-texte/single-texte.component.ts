@@ -15,20 +15,20 @@ import * as O from '../../outils/outils-management';
 })
 export class SingleTexteComponent implements OnInit, OnDestroy {
 
-    private currentTexte: TexteModel;
-    private currentTexteSub: Subscription;
+    public currentTexte: TexteModel;
+    public currentTexteSub: Subscription;
 
-    private loading: boolean;
+    public loading: boolean;
     private auteurId: string;
-    private isAuth: boolean;
-    private errorMessage: string;
+    public isAuth: boolean;
+    public errorMessage: string;
 
-    private debug: boolean;
+    public debug: boolean;
     private trace: boolean;
 
     private currentUrl: string;
 
-    private isAuthSub: Subscription;
+    public isAuthSub: Subscription;
     
     constructor(private stateService: StateService,
 		private router: Router,
@@ -45,8 +45,7 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 	console.log('%cEntrée dans','color:#00aa00', here);
 	
 	this.debug = this.stateService.debug;
-	console.log('Entrée dans ngOnInit');
-	console.log('Dans',here,' avec debug', this.debug);
+	console.log('Dans',here,'debug', this.debug);
 
 	this.currentUrl = this.router.url;
 	this.stateService.currentUrl$.next(this.currentUrl);

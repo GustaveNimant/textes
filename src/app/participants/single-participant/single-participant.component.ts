@@ -17,9 +17,11 @@ import * as O from '../../outils/outils-management';
 export class SingleParticipantComponent implements OnInit, OnDestroy {
 
     public participantModel: ParticipantModel;
-    public loading: boolean;
     public participantId: string;
 
+    public loading: boolean;
+    public debug: boolean;
+    
     constructor(private stateService: StateService,
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
@@ -29,8 +31,14 @@ export class SingleParticipantComponent implements OnInit, OnDestroy {
     }
     
     ngOnInit() {
-	console.log('Entrée dans ngOnInit');
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
+
 	this.loading = true;
+
+	this.debug = this.stateService.debug;
+	console.log('Dans',here,'debug', this.debug);
+
 	this.stateService.mode$.next('single-participant');
 	this.participantId = this.compteService.userId ? this.compteService.userId : 'participantID40282382';
 	this.activatedRoute.params.subscribe(

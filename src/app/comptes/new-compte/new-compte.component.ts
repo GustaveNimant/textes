@@ -20,7 +20,7 @@ export class NewCompteComponent implements OnInit, OnDestroy {
     public loading = false;
     public errorMessage: string;
 
-    private currentEmail: string ='';
+    public currentEmail: string ='';
     
     constructor(
 		private formBuilder: FormBuilder,

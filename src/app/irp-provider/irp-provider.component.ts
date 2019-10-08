@@ -17,15 +17,15 @@ import * as O from '../outils/outils-management';
 export class IrpProviderComponent implements OnInit, OnDestroy {
 
     private debugSub: Subscription;
-    private debug: boolean;
+    public debug: boolean;
 
     private irpResultSub: Subscription;
     private irpResult:string;
     
-    private irpProviderForm: FormGroup;
+    public irpProviderForm: FormGroup;
     private objectName: string;
     public loading = false;
-    
+    public errorMessage = '';
     private here:string;
 
     constructor(

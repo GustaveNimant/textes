@@ -18,9 +18,10 @@ import * as O from '../../outils/outils-management';
 
 export class ByobjectidNotationComponent implements OnInit, OnDestroy {
 
-    private loading = false;
-    private errorMessage: string;
-
+    public loading = false;
+    public errorMessage: string;
+    public debug: boolean;
+    
     private participantCount: number;
     private texteObjectId: string;
     private texteTitre: string;
@@ -28,7 +29,7 @@ export class ByobjectidNotationComponent implements OnInit, OnDestroy {
     private currentUrl: string;
     private currentUrlSub: Subscription;
 
-    private notation_a = new Array<NotationModel>();
+    public notation_a = new Array<NotationModel>();
  
     constructor(private stateService: StateService,
 		private texteService: TexteService,
@@ -43,6 +44,9 @@ export class ByobjectidNotationComponent implements OnInit, OnDestroy {
     ngOnInit() {
 	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
+
+	this.debug = this.stateService.debug;
+	console.log('Dans',here,'debug', this.debug);
 
 	this.loading = true;
 

@@ -18,7 +18,7 @@ import * as O from '../outils/outils-management';
 export class LoginComponent implements OnInit, OnDestroy {
 
     public loginForm: FormGroup;
-    public loading = false;
+
     public currentUrl: string;
     public currentEmail: string;
     public userId: string;
@@ -28,6 +28,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     private currentUrlSub: Subscription;
     private currentSub: Subscription;
 
+    public loading = false;
+    public debug: boolean;
+    
     constructor(private stateService: StateService,
 		private formBuilder: FormBuilder,
 		private router: Router,
@@ -39,8 +42,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 		}
 
     ngOnInit() {
-	let here = O.functionName();
-	console.log('%cEntrée dans','color: #00aa00', here);;
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
+	
+	this.debug = this.stateService.debug;
+	console.log('Dans',here,'debug', this.debug);
 
 	this.stateService.mode$.next('form');
 
