@@ -3,13 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { ParticipantModel } from '../models/participant.model';
 import { Subject } from 'rxjs';
 
+import * as O from '../outils/outils-management';
+
 @Injectable({
     providedIn: 'root'
 })
 
 export class ParticipantService {
 
-    uri_all = 'http://localhost:3000/api/participants/';
+    uri_all = O.uriGet('ParticipantService') + '/api/participants/';
     uri_new = this.uri_all;
 
     constructor(private http: HttpClient) {

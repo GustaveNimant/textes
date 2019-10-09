@@ -13,6 +13,8 @@ import * as O from '../outils/outils-management';
 
 export class CompteService {
 
+    uri_all = O.uriGet('CompteService') + '/api/comptes/';
+
     isAuth$ = new BehaviorSubject<boolean>(false);
     token: string;  /* utilisé dans intercept */
     userId: string; /* utilisé dans intercept */
@@ -29,8 +31,7 @@ export class CompteService {
 
     private loading:boolean = false;
 
-    uri_all = 'http://localhost:3000/api/comptes/';
-
+    
     constructor(private router: Router,
 		private http: HttpClient)
 		{

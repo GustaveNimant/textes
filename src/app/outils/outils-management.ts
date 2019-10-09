@@ -1,4 +1,6 @@
 import * as jsSHA from 'jssha';
+import * as process from 'process';
+
 
 export function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -93,3 +95,11 @@ export function unsubscribeLog (here:string, what:string) {
     return console.log('%cDans '+here+' %c'+what+' %cunsubscribe','color:#00aa00','color:#aa0000','color:#00aa00')
 }
 
+export function uriGet(here) {
+    
+    const port = process.env.PORT_DB || '3000';
+    const server = process.env.SERVER_DB || 'localhost';
+    let uri = 'http://'+server+':'+port;
+    console.log('Dans',here,'uri',uri);
+    return uri;
+}

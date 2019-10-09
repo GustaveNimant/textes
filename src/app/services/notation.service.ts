@@ -12,8 +12,7 @@ import * as O from '../outils/outils-management';
 
 export class NotationService {
 
-    uri_all = 'http://localhost:3000/api/notations/';
-
+    uri_all = O.uriGet('NotationService') + '/api/notations/';
     constructor(private http: HttpClient){};
 
     private notation_a: NotationModel[] = [];
