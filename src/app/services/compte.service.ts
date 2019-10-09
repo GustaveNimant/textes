@@ -34,8 +34,7 @@ export class CompteService {
     constructor(private router: Router,
 		private http: HttpClient)
 		{
-		    let here = O.functionName ();
-		    console.log('%cEntrée dans','color:#00aa00',here);
+		    O.constructorLog(O.functionName());
 		}
 
     createNewCompte(compte: CompteModel) { /* signup */
@@ -125,6 +124,7 @@ export class CompteService {
 
     getCompteByEmail(email: string) {
 	let here = O.functionName ();
+
 	console.log('%cEntrée dans Promise','color:#0000aa','avec email', email);
 	return new Promise((resolve, reject) => {
 	    this.http.get(this.uri_all + email).subscribe(

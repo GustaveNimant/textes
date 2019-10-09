@@ -37,8 +37,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 		private irpRegisterService: IrpRegisterService,
 		private compteService: CompteService)
 		{
-		    let here = O.functionName();
-		    console.log('%cEntrée dans','color: #00aa00', here);;
+		    O.constructorLog(O.functionName());
 		}
 
     ngOnInit() {

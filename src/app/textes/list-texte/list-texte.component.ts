@@ -88,11 +88,11 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 	this.isAuthSub = this.compteService.isAuth$.subscribe(
 	    (boo) => {  /* Pour afficher les textes */
 		this.isAuth = boo;
-		console.log('Dans ngOnInit isAuth', this.isAuth);
+		console.log('Dans',here,'isAuth', this.isAuth);
 	    }
 	);
 
-	console.log('\n------- avant this.texteService.texte_a$.subscribe ---------\n');
+	console.log('\nDEBUG------- avant this.texteService.texte_a$.subscribe ---------\n');
 
 	this.texte_aSub = this.texteService.texte_a$
 			      .subscribe(
@@ -108,8 +108,8 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 				  }
 			      );
 
-	console.log('\n------- après this.texteService.texte_a$.subscribe ---------\n');
-	console.log('\n------- avant this.texteService.getTextes  ---------\n');	this.loading = false;
+	console.log('\nDEBUG------- après this.texteService.texte_a$.subscribe ---------\n');
+	console.log('\nDEBUG------- avant this.texteService.getTextes  ---------\n');	this.loading = false;
 	
 	this.texteService.getTextes(here) /* afficher les textes */
 	    .then( 
@@ -125,8 +125,8 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 		}
 	    );
 
-	console.log('\n------- après this.texteService.getTextes  ---------\n');
-	console.log('\n------- avant this.compteService.compte_a$.subscribe ---------\n');
+	console.log('\nDEBUG------- après this.texteService.getTextes  ---------\n');
+	console.log('\nDEBUG------- avant this.compteService.compte_a$.subscribe ---------\n');
 	
 	this.compte_aSub = this.compteService.compte_a$
 			       .subscribe(
@@ -136,9 +136,9 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 				   }
 			       );
 	
-	console.log('\n------- après this.compteService.compte_a$.subscribe ---------\n');
+	console.log('\nDEBUG------- après this.compteService.compte_a$.subscribe ---------\n');
 
-	console.log('\n------- avant this.compteService.getComptes  ---------\n');
+	console.log('\nDEBUG------- avant this.compteService.getComptes  ---------\n');
 	this.compteService.getComptes(here) /* afficher les comptes */
 	    .then( 
 												() => {
@@ -151,8 +151,8 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 												}
 											    );
 
-	console.log('\n------- après this.texteService.getComptes  ---------\n');
-	console.log('\n------- avant this.notationService.notation_a$.subscribe ---------\n');
+	console.log('\nDEBUG------- après this.texteService.getComptes  ---------\n');
+	console.log('\nDEBUG------- avant this.notationService.notation_a$.subscribe ---------\n');
 	
 	this.notation_aSub = this.notationService.notation_a$
 				 .subscribe(
@@ -175,7 +175,7 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 		}
 	    );
 
-	console.log('\n------- après this.notationService.getNotations  ---------\n');
+	console.log('\nDEBUG------- après this.notationService.getNotations  ---------\n');
 
 	this.onVerbose ();
 
@@ -195,18 +195,18 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
 	
-	console.log('Dans',here,' this.texte_a=',this.texte_a);
-	console.log('Dans',here,' this.compte_a=',this.compte_a);
+	console.log('DEBUG Dans',here,' this.texte_a=',this.texte_a);
+	console.log('DEBUG Dans',here,' this.compte_a=',this.compte_a);
 
 	for (let t in this.texte_a) {
 	    let aId = this.texte_a[t].auteurId;
-	    console.log('\n------- Loop texte #',t,' ------------------\n');
-	    console.log('Dans',here,'Loop aId',aId);
-	    console.log('Dans',here,'texte_a[',t,']',this.texte_a[t]);
+	    console.log('\nDEBUG------- Loop texte #',t,' ------------------\n');
+	    console.log('DEBUG Dans',here,'loop aId',aId);
+	    console.log('DEBUG Dans',here,'texte_a[',t,']',this.texte_a[t]);
 
 	    this.currentCompte = this.compte_a.find( x => x._id == aId);
 	    this.currentPseudo = this.currentCompte.pseudo;
-	    console.log('Dans',here,'currentPseudo',this.currentPseudo);
+	    console.log('DEBUG Dans',here,'currentPseudo',this.currentPseudo);
 	    this.texte_a[t]['pseudo'] = this.currentPseudo;
 	}
     }
@@ -215,17 +215,17 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
 
-	console.log('Dans',here,' this.texte_a=',this.texte_a);
-	console.log('Dans',here,' this.notation_a=',this.notation_a);
+	console.log('DEBUG Dans',here,' this.texte_a=',this.texte_a);
+	console.log('DEBUG Dans',here,' this.notation_a=',this.notation_a);
 
 	for (let t in this.texte_a) {
 	    let tId = this.texte_a[t]._id;
-	    console.log('\n------- Loop texte #',t,' ------------------\n');
-	    console.log('Dans',here,'Loop tId',tId);
-	    console.log('Dans',here,'texte_a[',t,']',this.texte_a[t]);
+	    console.log('\nDEBUG------- Loop texte #',t,' ------------------\n');
+	    console.log('DEBUG Dans',here,'Loop tId',tId);
+	    console.log('DEBUG Dans',here,'texte_a[',t,']',this.texte_a[t]);
 
 	    this.currentNotation_a = this.notation_a.filter( x => x.texteObjectId == tId);
-	    console.log('Dans',here,'currentNotation_a',this.currentNotation_a);
+	    console.log('DEBUG Dans',here,'currentNotation_a',this.currentNotation_a);
 
 	    let note_a = new Array<number>();
             for (let i in this.currentNotation_a) {
@@ -233,10 +233,10 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 	    }
 
 	    [this.participantCount, this.average, this.rms, this.sum] = arrayCountSumAverageRms(note_a);
-	    console.log('Dans',here,'liste des notes',note_a);
-	    console.log('Dans',here,'somme des notes note_a',this.sum);
-	    console.log('Dans',here,'moyenne des notes note_a',this.average);
-	    console.log('Dans',here,'rms des notes note_a',this.rms);
+	    console.log('DEBUG Dans',here,'liste des notes',note_a);
+	    console.log('DEBUG Dans',here,'somme des notes note_a',this.sum);
+	    console.log('DEBUG Dans',here,'moyenne des notes note_a',this.average);
+	    console.log('DEBUG Dans',here,'rms des notes note_a',this.rms);
 
 	    this.texte_a[t]['noteMoyenne'] = Math.round(this.average*10)/10;
 	    this.texte_a[t]['noteEcartType'] = Math.round(this.rms*10)/10;

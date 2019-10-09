@@ -12,8 +12,7 @@ import * as O from '../outils/outils-management';
 export class MainMenuComponent implements OnInit {
 
     constructor(private router: Router) {
-	let here = O.functionName ();
-	console.log('%cEntrée dans','color:#00aa00', here);
+	O.constructorLog(O.functionName());
     }
 
     ngOnInit() {

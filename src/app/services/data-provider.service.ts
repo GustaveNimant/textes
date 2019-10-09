@@ -20,8 +20,7 @@ export class DataProviderService {
 	private router: Router,
 	private irpRegisterService: IrpRegisterService)
 	{
-	    let here = O.functionName ();
-	    console.log('%cEntrée dans','color:#00aa00', here);
+	    O.constructorLog(O.functionName());
 	}
     
     currentEmailBuild () {

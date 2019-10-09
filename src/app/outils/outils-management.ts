@@ -4,6 +4,14 @@ export function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
+export function constructorLog(here) {
+    if (here != 'constructor') {
+	console.log('%cEntrée dans','color:#00aa00','constructor',here);
+    } else {
+	console.log('%cEntrée dans','color:#00aa00', here);
+    }
+}
+    
 export function errorStack () {
     var stack = new Error().stack;
     return stack;

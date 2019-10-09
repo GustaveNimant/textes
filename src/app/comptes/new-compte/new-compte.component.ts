@@ -23,14 +23,15 @@ export class NewCompteComponent implements OnInit, OnDestroy {
     public currentEmail: string ='';
     
     constructor(
-		private formBuilder: FormBuilder,
-		private router: Router,
-		private activatedRoute: ActivatedRoute,
-		private compteService: CompteService,
-		private stateService: StateService)
-		{
-		    console.log('Entrée dans constructor');
-		}
+	private formBuilder: FormBuilder,
+	private router: Router,
+	private activatedRoute: ActivatedRoute,
+	private compteService: CompteService,
+	private stateService: StateService)
+	{
+	    let here = O.functionName ();
+	    console.log('%cEntrée dans','color:#00aa00', here);
+	}
     
     ngOnInit() {
 	let here = O.functionName ();
@@ -40,23 +41,25 @@ export class NewCompteComponent implements OnInit, OnDestroy {
 
 	this.activatedRoute.params.subscribe(
 	    (params: Params) => {
-		console.log('Dans ngOnInit params', params);
+		console.log('Dans',here,'params', params);
 		if (params.id) {
 		    this.currentEmail = params.id;
 		} 
 	    }
 	);
 
-	console.log('Dans ngOnInit currentEmail', this.currentEmail);
-	
-	this.compteForm = this.formBuilder.group({
-	    pseudo: [null, Validators.required],
-	    email: [null, Validators.required, Validators.email],
-	    password: [null, [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)]]
-	});
-	
+	console.log('Dans',here,'currentEmail', this.currentEmail);
+	if (this.currentEmail) {
+	    this.compteForm = this.formBuilder.group({
+		pseudo: [null, Validators.required],
+		email: [null, Validators.required, Validators.email],
+		password: [null, [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)]]
+	    });
+	} else {
+	    alert('Dans newCompte ngOnInit pas de currentEmail');
+	}
     }
-
+    
     onSubmit() {
 	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
@@ -77,7 +80,7 @@ export class NewCompteComponent implements OnInit, OnDestroy {
 		    this.compteForm.reset();
 		    this.loading = false;
 		    this.router.navigate(['/comptes/list-compte']);
-		    }
+		}
 	    )
 	    .catch(
 		(error) => {
