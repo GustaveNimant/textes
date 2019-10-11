@@ -3,14 +3,15 @@ import { Subject } from 'rxjs';
 import { TexteModel } from '../models/texte.model';
 import { HttpClient } from '@angular/common/http';
 
+import * as O from '../outils/outils-management';
+
 @Injectable({
     providedIn: 'root'
 })
 
 export class TexteService {
 
-    uri_all = 'http://localhost:3000/api/textes/';
-    
+    uri_all = O.uriGet('CompteService') + '/api/textes/';    
     constructor(private http: HttpClient){};
 
     private textes: TexteModel[] = [];

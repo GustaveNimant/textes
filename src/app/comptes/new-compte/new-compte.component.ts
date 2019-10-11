@@ -49,15 +49,11 @@ export class NewCompteComponent implements OnInit, OnDestroy {
 	);
 
 	console.log('Dans',here,'currentEmail', this.currentEmail);
-	if (this.currentEmail) {
 	    this.compteForm = this.formBuilder.group({
 		pseudo: [null, Validators.required],
 		email: [null, Validators.required, Validators.email],
 		password: [null, [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)]]
 	    });
-	} else {
-	    alert('Dans newCompte ngOnInit pas de currentEmail');
-	}
     }
     
     onSubmit() {

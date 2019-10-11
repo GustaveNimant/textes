@@ -42,6 +42,7 @@ export class CompteService {
 	let here = O.functionName ();
 	console.log('%cEntrée dans Promise','color:#0000aa',here,'avec compte ', compte);
 	const uri_signup = this.uri_all + 'signup';
+	console.log('Dans',here,'uri_signup',uri_signup);
 
 	return new Promise((resolve, reject) => {
 	    this.http.post(uri_signup, compte) /* utilise compteCtrl.js.signup */
@@ -72,6 +73,7 @@ export class CompteService {
 	let here = O.functionName ();
 	console.log('%cEntrée dans Promise','color:#0000aa',here,'avec id',id);
 
+	console.log('Dans',here,'uri_all',this.uri_all);
 	return new Promise((resolve, reject) => {
 	    this.http.delete(this.uri_all + id).subscribe(
 		(response) => {
@@ -102,7 +104,8 @@ export class CompteService {
 	let here = O.functionName ();
 	console.log('%cEntrée dans Promise','color:#0000ff',here,'avec uri_all', this.uri_all);
 	console.log(here,'appelé par',caller);
-
+	console.log('Dans',here,'uri_all',this.uri_all);
+	
 	return new Promise((resolve, reject) => {
 	    console.log('Dans getNotations resolve', resolve)
 	    this.http.get(this.uri_all).subscribe(
@@ -126,7 +129,8 @@ export class CompteService {
     getCompteByEmail(email: string) {
 	let here = O.functionName ();
 
-	console.log('%cEntrée dans Promise','color:#0000aa','avec email', email);
+	console.log('%cEntrée dans Promise','color:#0000aa','avec email', email);	console.log('Dans',here,'uri_all',this.uri_all);
+	
 	return new Promise((resolve, reject) => {
 	    this.http.get(this.uri_all + email).subscribe(
 		(com: CompteModel) => {
@@ -146,6 +150,8 @@ export class CompteService {
     getCompteById(id: string) {
 	let here = O.functionName ();
 	console.log('%cEntrée dans Promise','color:#0000aa','avec id',id);
+
+	console.log('Dans',here,'uri_all',this.uri_all);
 	
 	return new Promise((resolve, reject) => {
 	    this.http.get(this.uri_all + id).subscribe(
@@ -219,7 +225,8 @@ export class CompteService {
 	console.log('%cEntrée dans Promise','color:#0000aa','avec email',email,' et password',password); 
 	
 	const uri_login = this.uri_all + 'login';
-
+	console.log('Dans',here,'uri_login',uri_login);
+	
 	return new Promise((resolve, reject) => {
 	    this.http.post(uri_login,
 			   {email: email, password: password})
