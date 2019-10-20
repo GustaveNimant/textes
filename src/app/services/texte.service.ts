@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 
 import * as O from '../outils/outils-management';
+import * as process from 'process';
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +13,8 @@ import * as O from '../outils/outils-management';
 
 export class TexteService {
 
-    uri_all = O.uriGet('TexteService') + '/api/textes/';
+    //    uri_all = O.uriGet('TexteService') + '/api/textes/';
+    uri_all = 'http://'+(process.env.SERVER_DB || 'localhost')+':'+(process.env.PORT_DB || '3000') + '/api/textes/';
     
     constructor(private http: HttpClient)
     {
@@ -66,7 +68,8 @@ export class TexteService {
     deleteTexte(texteObjectId: string) {
 	let here = O.functionName ();
 	console.log('%cEntrée dans Promise','color:#0000aa',here,'avec texteObjectId',texteObjectId);
-
+	console.log('Dans',here,'uri_all',this.uri_all);
+	
 	return new Promise((resolve, reject) => {
 	    this.http.delete(this.uri_all + texteObjectId).subscribe(
 		(response) => {
@@ -96,6 +99,7 @@ export class TexteService {
     getTexteByObjectId(texteObjectId: string) {
 	let here = O.functionName();
 	console.log('%cEntrée dans Promise','color:#0000aa',here,'avec texteObjectId',texteObjectId);
+	console.log('Dans',here,'uri_all',this.uri_all);
 
 	return new Promise((resolve, reject) => {
 	    this.http.get(this.uri_all + texteObjectId).subscribe(

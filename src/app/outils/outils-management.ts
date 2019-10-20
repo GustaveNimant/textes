@@ -31,6 +31,12 @@ export function functionName () {
     return caller;
 }
 
+var functionNameJS = () => {
+    var stack = new Error().stack;
+    var caller = (stack.split('at')[2]).split(' ')[1];
+    return caller;
+}
+
 export function functionNameForbidden () {
     var ownName = arguments.callee.toString();
     ownName = ownName.substr('function '.length);        // trim off "function "
@@ -97,12 +103,11 @@ export function unsubscribeLog (here:string, what:string) {
 
 export function uriGet(here) {
     
-    const port = process.env.PORT_DB || '3000';
-    const server = process.env.SERVER_DB || 'localhost';
-    console.log('uriGet: Dans',here,'SERVER_DB >',process.env.SERVER_DB,'<');
-    console.log('uriGet: Dans',here,'server',server);
-    //    let uri = 'http://'+server+':'+port;
-    let uri = 'http://51.75.143.86:3000';
+    let port = process.env.PORT_DB || '3000';
+    let server = process.env.SERVER_DB || 'localhost';
+    //    let port = '3010';
+    //    let server = '51.75.143.86';
+    let uri = 'http://'+server+':'+port;
     console.log('uriGet: Dans',here,'uri',uri);
     return uri;
 }
